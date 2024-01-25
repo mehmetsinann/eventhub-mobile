@@ -5,6 +5,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from '../screens/Home';
 import Filter from '../screens/Filter';
 import EventDetail from '../screens/EventDetail';
+import Search from '../screens/Search';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,7 +17,14 @@ const AppStack = () => {
       }}>
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="EventDetail" component={EventDetail} />
-      <Stack.Screen name="Filter" component={Filter} />
+      <Stack.Screen
+        options={{
+          animation: 'slide_from_bottom',
+        }}
+        name="Filter"
+        component={Filter}
+      />
+      <Stack.Screen name="Search" component={Search} />
     </Stack.Navigator>
   );
 };

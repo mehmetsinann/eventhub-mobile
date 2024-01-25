@@ -8,6 +8,8 @@ import {styles} from './EventDetail.style';
 import {CategoryBadge} from '../../components/CategoryBadge';
 import moment from 'moment';
 import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../types/RootStackParamList';
 
 type EventDetailProps = {
   route: {
@@ -18,7 +20,8 @@ type EventDetailProps = {
 };
 
 const EventDetail = ({route}: EventDetailProps) => {
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const {eventId} = route.params;
   const event = useSelector((state: RootState) =>
     state.events.events.find((_event: Event) => _event._id === eventId),
@@ -50,10 +53,15 @@ const EventDetail = ({route}: EventDetailProps) => {
         {event?.category && <CategoryBadge category={event?.category} />}
       </View>
       <View style={styles.infoContainer}>
-        <View style={styles.info}>
-          <Icon name="location-outline" size={20} color={'#777'} />
-          <Text style={styles.infoText}>{event?.venue.name}</Text>
-        </View>
+        <Pressable
+          onPress={() => {
+            navigation.navigate('Search', {searchText: event?.venue.name});
+          }}>
+          <View style={styles.info}>
+            <Icon name="location-outline" size={20} color={'#777'} />
+            <Text style={styles.infoText}>{event?.venue.name}</Text>
+          </View>
+        </Pressable>
         <View style={styles.info}>
           <Icon name="calendar-clear-outline" size={20} color={'#777'} />
           <Text style={styles.infoText}>

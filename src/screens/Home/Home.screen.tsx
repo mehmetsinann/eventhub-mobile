@@ -14,6 +14,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import moment from 'moment';
 import Carousel from 'react-native-reanimated-carousel';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {useNavigation} from '@react-navigation/native';
 
 import {RootState} from '../../redux/store';
 import {fetchEvents} from '../../redux/slices/eventSlice';
@@ -24,7 +25,7 @@ import {styles} from './Home.style';
 
 const Home = () => {
   const dispatch: any = useDispatch();
-
+  const navigation: any = useNavigation();
   const events = useSelector((state: RootState) => state.events.events);
   const status = useSelector((state: RootState) => state.events.status);
   const error = useSelector((state: RootState) => state.events.error);
@@ -50,12 +51,19 @@ const Home = () => {
     );
   }
 
+  const navigateTo = (screen: string) => {
+    navigation.navigate(screen);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.header}>
           <Text style={styles.title}>EventHub</Text>
-          <Pressable>
+          <Pressable
+            onPress={() => {
+              navigateTo('Search');
+            }}>
             <Icon name="search-outline" size={28} />
           </Pressable>
         </View>
@@ -81,7 +89,10 @@ const Home = () => {
         <View style={styles.eventList}>
           <View style={styles.eventListHeader}>
             <Text style={styles.sectionTitle}>Events</Text>
-            <Pressable>
+            <Pressable
+              onPress={() => {
+                navigateTo('Filter');
+              }}>
               <Icon name="filter-outline" size={24} />
             </Pressable>
           </View>
