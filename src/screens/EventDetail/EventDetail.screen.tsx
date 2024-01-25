@@ -55,7 +55,7 @@ const EventDetail = ({route}: EventDetailProps) => {
       <View style={styles.infoContainer}>
         <Pressable
           onPress={() => {
-            navigation.navigate('Search', {searchText: event?.venue.name});
+            navigation.push('Search', {searchText: event?.venue.name});
           }}>
           <View style={styles.info}>
             <Icon name="location-outline" size={20} color={'#777'} />

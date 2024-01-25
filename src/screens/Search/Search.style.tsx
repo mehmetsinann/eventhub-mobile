@@ -8,7 +8,8 @@ export const styles = StyleSheet.create({
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 20,
+    paddingRight: 20,
+    paddingLeft: 10,
     marginBottom: 20,
   },
   input: {

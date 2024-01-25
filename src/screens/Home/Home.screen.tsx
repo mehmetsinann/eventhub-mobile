@@ -51,8 +51,8 @@ const Home = () => {
     );
   }
 
-  const navigateTo = (screen: string) => {
-    navigation.navigate(screen);
+  const navigateTo = (screen: string, params: object) => {
+    navigation.navigate(screen, {...params});
   };
 
   return (
@@ -62,7 +62,7 @@ const Home = () => {
           <Text style={styles.title}>EventHub</Text>
           <Pressable
             onPress={() => {
-              navigateTo('Search');
+              navigateTo('Search', {searchText: ''});
             }}>
             <Icon name="search-outline" size={28} />
           </Pressable>
