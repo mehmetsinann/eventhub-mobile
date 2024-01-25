@@ -3,10 +3,14 @@ import React from 'react';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
+import {useNavigation} from '@react-navigation/native';
 
 import {styles} from './styles';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../types/RootStackParamList';
 
 type EventListItemProps = {
+  _id: string;
   name: string;
   venue: {
     name: string;
@@ -23,11 +27,26 @@ type EventListItemProps = {
   imageURI?: string;
 };
 
-const EventListItem = ({name, venue, date, imageURI}: EventListItemProps) => {
+const EventListItem = ({
+  _id,
+  name,
+  venue,
+  date,
+  imageURI,
+}: EventListItemProps) => {
+  const navigation =
+    useNavigation<
+      NativeStackNavigationProp<RootStackParamList, 'EventDetail'>
+    >();
+
+  const handlePress = () => {
+    navigation.navigate('EventDetail', {eventId: _id});
+  };
+
   const replaceImage =
     'https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y29uY2VydCUyMGNyb3dkfGVufDB8fDB8fHww';
   return (
-    <Pressable style={styles.container}>
+    <Pressable style={styles.container} onPress={handlePress}>
       <View style={styles.infoContainer}>
         <View style={styles.info}>
           <Icon name="person-outline" size={24} />

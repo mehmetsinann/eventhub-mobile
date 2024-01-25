@@ -1,4 +1,4 @@
-import {Image, Text, View} from 'react-native';
+import {Image, Pressable, Text, View} from 'react-native';
 import React from 'react';
 
 import LinearGradient from 'react-native-linear-gradient';
@@ -6,8 +6,12 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 
 import {styles} from './styles';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../types/RootStackParamList';
 
 type CarouselItemProps = {
+  _id: string;
   name: string;
   venue: {
     name: string;
@@ -24,11 +28,26 @@ type CarouselItemProps = {
   imageURI?: string;
 };
 
-const CarouselItem = ({name, venue, date, imageURI}: CarouselItemProps) => {
+const CarouselItem = ({
+  _id,
+  name,
+  venue,
+  date,
+  imageURI,
+}: CarouselItemProps) => {
+  const navigation =
+    useNavigation<
+      NativeStackNavigationProp<RootStackParamList, 'EventDetail'>
+    >();
+
+  const handlePress = () => {
+    navigation.navigate('EventDetail', {eventId: _id});
+  };
+
   const replaceImage =
     'https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y29uY2VydCUyMGNyb3dkfGVufDB8fDB8fHww';
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={handlePress}>
       <Image
         source={{
           uri: imageURI || replaceImage,
@@ -55,7 +74,7 @@ const CarouselItem = ({name, venue, date, imageURI}: CarouselItemProps) => {
           </Text>
         </View>
       </LinearGradient>
-    </View>
+    </Pressable>
   );
 };
 

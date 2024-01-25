@@ -2,7 +2,7 @@
 import axios from 'axios';
 import {createSlice, createAsyncThunk, PayloadAction} from '@reduxjs/toolkit';
 
-import {Event} from '../../types/event';
+import {Event} from '../../types/Event';
 
 export interface EventsState {
   events: Event[];

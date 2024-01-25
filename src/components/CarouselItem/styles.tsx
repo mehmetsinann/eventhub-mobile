@@ -19,6 +19,7 @@ export const styles = StyleSheet.create({
     zIndex: 100,
     justifyContent: 'flex-end',
     padding: 12,
+    borderRadius: 12,
   },
   info: {
     flexDirection: 'row',

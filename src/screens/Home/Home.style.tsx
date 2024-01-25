@@ -6,6 +6,8 @@ export const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     paddingHorizontal: 20,
     paddingVertical: 10,
   },
@@ -29,7 +31,11 @@ export const styles = StyleSheet.create({
     flex: 1,
     marginRight: 10,
   },
-  sectionTitle: {fontSize: 18, marginBottom: 10, fontWeight: 'bold'},
+  sectionTitle: {
+    fontSize: 18,
+    marginBottom: 10,
+    fontWeight: 'bold',
+  },
   carouselContainer: {
     marginHorizontal: 20,
     width: '100%',
@@ -37,5 +43,11 @@ export const styles = StyleSheet.create({
   eventList: {
     marginHorizontal: 20,
     marginTop: 20,
+  },
+  eventListHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
   },
 });
