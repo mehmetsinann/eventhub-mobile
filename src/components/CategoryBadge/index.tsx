@@ -18,7 +18,7 @@ export const CategoryBadge = ({category}: CategoryBadgeProps) => {
       style={[
         styles.box,
         {
-          backgroundColor: BADGE_COLORS[category.toLowerCase()],
+          backgroundColor: BADGE_COLORS[category.toLowerCase()] || '#DDD',
         },
       ]}>
       <Text style={styles.text}>{category}</Text>

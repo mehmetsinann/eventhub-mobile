@@ -24,7 +24,7 @@ type EventListItemProps = {
     timezone: string;
   };
   date: Date;
-  imageURI?: string;
+  images?: string[];
 };
 
 const EventListItem = ({
@@ -32,7 +32,7 @@ const EventListItem = ({
   name,
   venue,
   date,
-  imageURI,
+  images,
 }: EventListItemProps) => {
   const navigation =
     useNavigation<
@@ -44,7 +44,7 @@ const EventListItem = ({
   };
 
   const replaceImage =
-    'https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y29uY2VydCUyMGNyb3dkfGVufDB8fDB8fHww';
+    'https://static.vecteezy.com/system/resources/previews/024/232/464/original/theater-concert-stage-with-curtain-cartoon-scene-free-vector.jpg';
   return (
     <Pressable style={styles.container} onPress={handlePress}>
       <View style={styles.infoContainer}>
@@ -65,7 +65,7 @@ const EventListItem = ({
       </View>
       <Image
         source={{
-          uri: imageURI || replaceImage,
+          uri: images && images.length > 0 ? images[0] : replaceImage,
         }}
         style={styles.image}
       />

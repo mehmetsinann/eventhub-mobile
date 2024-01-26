@@ -1,4 +1,13 @@
-import {View, Text, SafeAreaView, Image, Pressable, Share} from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  Image,
+  Pressable,
+  Share,
+  Dimensions,
+  ScrollView,
+} from 'react-native';
 import React from 'react';
 import {useSelector} from 'react-redux';
 import {Event} from '../../types/Event';
@@ -10,6 +19,7 @@ import moment from 'moment';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../types/RootStackParamList';
+import Carousel from 'react-native-reanimated-carousel';
 
 type EventDetailProps = {
   route: {
@@ -70,31 +80,85 @@ const EventDetail = ({route}: EventDetailProps) => {
           </Text>
         </View>
       </View>
-      {/* TODO: add here a carousel for multiple images */}
-      <Image
-        source={{
-          uri: 'https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y29uY2VydCUyMGNyb3dkfGVufDB8fDB8fHww',
-        }}
-        style={styles.image}
-      />
-      <View style={styles.descriptionContainer}>
-        <Text style={styles.descriptionTitle}>Description</Text>
-        <Text style={styles.description}>{event?.description}</Text>
-      </View>
-      <View style={styles.descriptionContainer}>
-        <Text style={styles.descriptionTitle}>Tickets</Text>
-        {event?.is_free && <Text>This event is free!</Text>}
-        {event?.ticket_info &&
-          !event.is_free &&
-          Object.entries(event.ticket_info).map(([category, price]) => (
-            <Text key={category} style={styles.description}>
-              {(category.charAt(0).toUpperCase() + category.slice(1))
-                .split('_')
-                .join(' ')}{' '}
-              - <Text style={styles.price}>{price}</Text>
+      <ScrollView>
+        {event?.images && event?.images.length < 2 ? (
+          <Image
+            source={{
+              uri:
+                event?.images[0] ||
+                'https://static.vecteezy.com/system/resources/previews/024/232/464/original/theater-concert-stage-with-curtain-cartoon-scene-free-vector.jpg',
+            }}
+            style={styles.image}
+          />
+        ) : (
+          <Carousel
+            loop
+            width={Dimensions.get('screen').width}
+            height={Dimensions.get('screen').height / 4}
+            autoPlay={true}
+            autoPlayInterval={3000}
+            data={event?.images || []}
+            scrollAnimationDuration={1000}
+            renderItem={({item}) => (
+              <Image
+                source={{
+                  uri: item,
+                }}
+                style={styles.image}
+              />
+            )}
+          />
+        )}
+        <View style={styles.descriptionContainer}>
+          <Text style={styles.descriptionTitle}>Description</Text>
+          <Text style={styles.description}>{event?.description}</Text>
+        </View>
+        <View style={styles.descriptionContainer}>
+          <Text style={styles.descriptionTitle}>Artists</Text>
+          {event?.artists.map(artist => (
+            <Text key={artist.name} style={styles.description}>
+              {artist.name}
             </Text>
           ))}
-      </View>
+        </View>
+        <View style={styles.descriptionContainer}>
+          <Text style={styles.descriptionTitle}>Tickets</Text>
+          {event?.is_free && <Text>This event is free!</Text>}
+          {event?.ticket_info &&
+            !event.is_free &&
+            Object.entries(event.ticket_info).map(([category, price]) => (
+              <Text key={category} style={styles.description}>
+                {(category.charAt(0).toUpperCase() + category.slice(1))
+                  .split('_')
+                  .join(' ')}{' '}
+                - <Text style={styles.price}>{price}</Text>
+              </Text>
+            ))}
+        </View>
+        <View style={styles.descriptionContainer}>
+          <Text style={styles.descriptionTitle}>Rules</Text>
+          <Text style={styles.description}>
+            Age limit: {event?.rules.age_limit}
+          </Text>
+          <Text style={styles.description}>
+            Alcohol: {event?.rules.alcohol ? 'Allowed' : 'Not allowed'}
+          </Text>
+          <Text style={styles.description}>
+            Dress code: {event?.rules.dress_code}
+          </Text>
+          <Text style={styles.description}>
+            Camera allowed: {event?.rules.camera_allowed ? 'Yes' : 'No'}
+          </Text>
+        </View>
+        <View style={styles.descriptionContainer}>
+          <Text style={styles.descriptionTitle}>Address</Text>
+          <Text style={styles.description}>
+            {event?.venue.name} - {event?.venue.street_number}{' '}
+            {event?.venue.street}, {event?.venue.city}, {event?.venue.state},{' '}
+            {event?.venue.country}
+          </Text>
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

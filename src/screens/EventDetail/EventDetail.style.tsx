@@ -7,7 +7,8 @@ export const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
+    paddingRight: 20,
+    paddingLeft: 10,
   },
   titleContainer: {
     paddingHorizontal: 20,
@@ -16,7 +17,7 @@ export const styles = StyleSheet.create({
     marginTop: 10,
   },
   title: {
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: 'bold',
   },
   infoContainer: {
@@ -51,6 +52,11 @@ export const styles = StyleSheet.create({
   descriptionTitle: {
     fontSize: 22,
     fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  ruleTitle: {
+    fontSize: 18,
+    fontWeight: '500',
     marginBottom: 10,
   },
   price: {

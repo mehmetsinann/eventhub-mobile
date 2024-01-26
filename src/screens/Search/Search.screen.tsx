@@ -56,6 +56,7 @@ const Search = ({route}: any) => {
             name={item.name}
             venue={item.venue}
             date={moment(item.start_date).toDate()}
+            images={item.images}
           />
         )}
         keyExtractor={item => item._id}
