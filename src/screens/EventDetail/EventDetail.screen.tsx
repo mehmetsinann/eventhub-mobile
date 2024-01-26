@@ -5,21 +5,24 @@ import {
   Image,
   Pressable,
   Share,
-  Dimensions,
   ScrollView,
 } from 'react-native';
 import React from 'react';
+
 import {useSelector} from 'react-redux';
-import {Event} from '../../types/Event';
-import {RootState} from '../../redux/store';
-import Icon from 'react-native-vector-icons/Ionicons';
-import {styles} from './EventDetail.style';
-import {CategoryBadge} from '../../components/CategoryBadge';
 import moment from 'moment';
+import Carousel from 'react-native-reanimated-carousel';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+
+import {RootState} from '../../redux/store';
+import {CategoryBadge} from '../../components/CategoryBadge';
+import {Event} from '../../types/Event';
 import {RootStackParamList} from '../../types/RootStackParamList';
-import Carousel from 'react-native-reanimated-carousel';
+import {screenHeight, screenWidth} from '../../constants/screenDimensions';
+
+import {styles} from './EventDetail.style';
 
 type EventDetailProps = {
   route: {
@@ -93,8 +96,8 @@ const EventDetail = ({route}: EventDetailProps) => {
         ) : (
           <Carousel
             loop
-            width={Dimensions.get('screen').width}
-            height={Dimensions.get('screen').height / 4}
+            width={screenWidth}
+            height={screenHeight / 4}
             autoPlay={true}
             autoPlayInterval={3000}
             data={event?.images || []}

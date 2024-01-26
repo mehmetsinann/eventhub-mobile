@@ -1,12 +1,15 @@
 import {View, SafeAreaView, TextInput, Pressable, FlatList} from 'react-native';
 import React, {useCallback} from 'react';
-import Icon from 'react-native-vector-icons/Ionicons';
-import {styles} from './Search.style';
-import {useNavigation} from '@react-navigation/native';
-import EventListItem from '../../components/EventListItem';
+
 import moment from 'moment';
-import {Event} from '../../types/Event';
 import axios from 'axios';
+import Icon from 'react-native-vector-icons/Ionicons';
+import {useNavigation} from '@react-navigation/native';
+
+import EventListItem from '../../components/EventListItem';
+import {Event} from '../../types/Event';
+
+import {styles} from './Search.style';
 
 const Search = ({route}: any) => {
   const {searchText} = route.params;

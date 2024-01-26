@@ -1,20 +1,23 @@
-import {View, Text, SafeAreaView, Pressable, Button} from 'react-native';
 import React, {useEffect} from 'react';
-import {styles} from './Filter.style';
+import {View, Text, SafeAreaView, Pressable, Button} from 'react-native';
+
+import {useDispatch, useSelector} from 'react-redux';
+import moment from 'moment';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/Ionicons';
 import DatePicker from 'react-native-date-picker';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+
 import {RootStackParamList} from '../../types/RootStackParamList';
-import {useDispatch, useSelector} from 'react-redux';
 import {
   setFilterCategory,
   setFilterEndDate,
   setFilterStartDate,
 } from '../../redux/slices/filterSlice';
 import {RootState} from '../../redux/store';
-import moment from 'moment';
+
+import {styles} from './Filter.style';
 
 const Filter = () => {
   const dispatch = useDispatch();
@@ -49,7 +52,7 @@ const Filter = () => {
   };
 
   const handleApply = () => {
-    selectedCategory && dispatch(setFilterCategory(selectedCategory));
+    dispatch(setFilterCategory(selectedCategory));
     startDate && dispatch(setFilterStartDate(moment(startDate).toDate()));
     endDate && dispatch(setFilterEndDate(moment(endDate).toDate()));
     navigation.goBack();
@@ -84,7 +87,9 @@ const Filter = () => {
               ]}
               key={category}
               onPress={() => {
-                setSelectedCategory(category);
+                selectedCategory === category
+                  ? setSelectedCategory('')
+                  : setSelectedCategory(category);
               }}>
               <Text style={styles.categoryText}>{category}</Text>
             </Pressable>

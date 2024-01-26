@@ -4,7 +4,6 @@ import {
   SafeAreaView,
   View,
   FlatList,
-  Dimensions,
   ScrollView,
   ActivityIndicator,
   Pressable,
@@ -16,6 +15,7 @@ import Carousel from 'react-native-reanimated-carousel';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 
+import {screenHeight, screenWidth} from '../../constants/screenDimensions';
 import {RootState} from '../../redux/store';
 import {fetchEvents} from '../../redux/slices/eventSlice';
 import EventListItem from '../../components/EventListItem';
@@ -26,14 +26,35 @@ import {styles} from './Home.style';
 const Home = () => {
   const dispatch: any = useDispatch();
   const navigation: any = useNavigation();
+  const [mode, setMode] = React.useState<'Upcoming' | 'Past'>('Upcoming');
   const filter = useSelector((state: RootState) => state.filter);
   const events = useSelector((state: RootState) => state.events.events);
   const status = useSelector((state: RootState) => state.events.status);
   const error = useSelector((state: RootState) => state.events.error);
 
+  const eventList = () => {
+    const upcomingEvents = events.filter(event => {
+      return moment(event.start_date).isAfter(moment());
+    });
+
+    const pastEvents = events.filter(event => {
+      return moment(event.start_date).isBefore(moment());
+    });
+
+    return mode === 'Upcoming' ? [...upcomingEvents] : [...pastEvents];
+  };
+
   useEffect(() => {
     dispatch(fetchEvents());
   }, [dispatch]);
+
+  const navigateTo = (screen: string, params = {}) => {
+    navigation.navigate(screen, {...params});
+  };
+
+  const handleChangeMode = (_mode: 'Upcoming' | 'Past') => {
+    setMode(_mode);
+  };
 
   if (status === 'loading') {
     return (
@@ -52,15 +73,12 @@ const Home = () => {
     );
   }
 
-  const navigateTo = (screen: string, params: object) => {
-    navigation.navigate(screen, {...params});
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View style={styles.header}>
           <Text style={styles.title}>EventHub</Text>
+
           <Pressable
             onPress={() => {
               navigateTo('Search', {searchText: ''});
@@ -73,8 +91,8 @@ const Home = () => {
             <Text style={styles.sectionTitle}>Highlights</Text>
             <Carousel
               loop
-              width={Dimensions.get('screen').width - 40}
-              height={Dimensions.get('screen').height / 4}
+              width={screenWidth - 40}
+              height={screenHeight / 4}
               autoPlay={true}
               autoPlayInterval={3000}
               data={events.slice(0, 3)}
@@ -94,38 +112,48 @@ const Home = () => {
 
         <View style={styles.eventList}>
           <View style={styles.eventListHeader}>
-            <Text style={styles.sectionTitle}>Events</Text>
-            {events.length > 0 && (
+            <Pressable
+              onPress={() => {
+                handleChangeMode(mode === 'Upcoming' ? 'Past' : 'Upcoming');
+              }}>
+              <Text style={styles.sectionTitle}>{mode} Events</Text>
+            </Pressable>
+
+            {events.length > 0 && mode === 'Upcoming' && (
               <Pressable
                 onPress={() => {
-                  navigateTo('Filter', {});
+                  navigateTo('Filter');
                 }}>
                 <Icon name="filter-outline" size={24} />
               </Pressable>
             )}
           </View>
           <FlatList
-            data={events.filter(event => {
-              if (filter.category && filter.category !== event.category) {
-                return false;
-              }
+            data={
+              mode === 'Upcoming'
+                ? eventList().filter(event => {
+                    if (filter.category && filter.category !== event.category) {
+                      return false;
+                    }
 
-              if (
-                filter.startDate &&
-                moment(filter.startDate).isAfter(event.start_date)
-              ) {
-                return false;
-              }
+                    if (
+                      filter.startDate &&
+                      moment(filter.startDate).isAfter(event.start_date)
+                    ) {
+                      return false;
+                    }
 
-              if (
-                filter.endDate &&
-                moment(filter.endDate).isBefore(event.end_date)
-              ) {
-                return false;
-              }
+                    if (
+                      filter.endDate &&
+                      moment(filter.endDate).isBefore(event.end_date)
+                    ) {
+                      return false;
+                    }
 
-              return true;
-            })}
+                    return true;
+                  })
+                : eventList()
+            }
             renderItem={({item}) => (
               <EventListItem
                 _id={item._id}
