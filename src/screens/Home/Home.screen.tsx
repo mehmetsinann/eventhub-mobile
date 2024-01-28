@@ -75,17 +75,17 @@ const Home = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <View style={styles.header}>
-          <Text style={styles.title}>EventHub</Text>
+      <View style={styles.header}>
+        <Text style={styles.title}>EventHub</Text>
 
-          <Pressable
-            onPress={() => {
-              navigateTo('Search', {searchText: ''});
-            }}>
-            <Icon name="search-outline" size={28} />
-          </Pressable>
-        </View>
+        <Pressable
+          onPress={() => {
+            navigateTo('Search', {searchText: ''});
+          }}>
+          <Icon name="search-outline" size={28} />
+        </Pressable>
+      </View>
+      <ScrollView>
         {events.length > 0 && (
           <View style={styles.carouselContainer}>
             <Text style={styles.sectionTitle}>Highlights</Text>
@@ -104,6 +104,7 @@ const Home = () => {
                   venue={item.venue}
                   date={moment(item.start_date).toDate()}
                   imageURI={item.images[0]}
+                  category={item.category}
                 />
               )}
             />
@@ -161,6 +162,7 @@ const Home = () => {
                 venue={item.venue}
                 date={moment(item.start_date).toDate()}
                 images={item.images}
+                category={item.category}
               />
             )}
             keyExtractor={item => item._id}

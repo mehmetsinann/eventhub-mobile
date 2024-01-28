@@ -1,5 +1,5 @@
 import {View, SafeAreaView, TextInput, Pressable, FlatList} from 'react-native';
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
 
 import moment from 'moment';
 import axios from 'axios';
@@ -11,11 +11,24 @@ import {Event} from '../../types/Event';
 
 import {styles} from './Search.style';
 
-const Search = ({route}: any) => {
+export type SearchProps = {
+  route: {
+    params: {
+      searchText: string;
+    };
+  };
+};
+
+const Search = ({route}: SearchProps) => {
   const {searchText} = route.params;
+  const inputRef = useRef<TextInput>(null);
   const [events, setEvents] = React.useState<Event[]>([]);
   const [search, setSearch] = React.useState<string>('');
   const navigation: any = useNavigation();
+
+  useEffect(() => {
+    inputRef && inputRef.current?.focus();
+  }, []);
 
   const getSearchedEvents = useCallback(async () => {
     const response =
@@ -49,6 +62,7 @@ const Search = ({route}: any) => {
           value={search || searchText}
           onChangeText={setSearch}
           editable={!searchText}
+          ref={inputRef}
         />
       </View>
       <FlatList
@@ -60,6 +74,7 @@ const Search = ({route}: any) => {
             venue={item.venue}
             date={moment(item.start_date).toDate()}
             images={item.images}
+            category={item.category}
           />
         )}
         keyExtractor={item => item._id}

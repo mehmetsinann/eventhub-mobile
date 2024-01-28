@@ -20,6 +20,7 @@ export const styles = StyleSheet.create({
     borderColor: '#DDD',
     padding: 8,
     borderRadius: 8,
+    backgroundColor: '#FFF',
   },
   eventList: {marginHorizontal: 20, alignSelf: 'center'},
 });

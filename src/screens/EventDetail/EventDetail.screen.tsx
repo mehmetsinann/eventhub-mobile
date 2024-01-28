@@ -21,10 +21,11 @@ import {CategoryBadge} from '../../components/CategoryBadge';
 import {Event} from '../../types/Event';
 import {RootStackParamList} from '../../types/RootStackParamList';
 import {screenHeight, screenWidth} from '../../constants/screenDimensions';
+import {placeHolderImage} from '../../constants/placeHolderImage';
 
 import {styles} from './EventDetail.style';
 
-type EventDetailProps = {
+export type EventDetailProps = {
   route: {
     params: {
       eventId: string;
@@ -33,9 +34,9 @@ type EventDetailProps = {
 };
 
 const EventDetail = ({route}: EventDetailProps) => {
+  const {eventId} = route.params;
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const {eventId} = route.params;
   const event = useSelector((state: RootState) =>
     state.events.events.find((_event: Event) => _event._id === eventId),
   );
@@ -68,7 +69,7 @@ const EventDetail = ({route}: EventDetailProps) => {
       <View style={styles.infoContainer}>
         <Pressable
           onPress={() => {
-            navigation.push('Search', {searchText: event?.venue.name});
+            navigation.push('Search', {searchText: event?.venue.name || ''});
           }}>
           <View style={styles.info}>
             <Icon name="location-outline" size={20} color={'#777'} />
@@ -89,7 +90,10 @@ const EventDetail = ({route}: EventDetailProps) => {
             source={{
               uri:
                 event?.images[0] ||
-                'https://static.vecteezy.com/system/resources/previews/024/232/464/original/theater-concert-stage-with-curtain-cartoon-scene-free-vector.jpg',
+                placeHolderImage[
+                  (event.category.toLowerCase() as keyof typeof placeHolderImage) ||
+                    'default'
+                ],
             }}
             style={styles.image}
           />

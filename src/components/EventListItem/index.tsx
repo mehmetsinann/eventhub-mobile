@@ -1,13 +1,15 @@
 import {View, Text, Image, Pressable} from 'react-native';
 import React from 'react';
 
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 import {useNavigation} from '@react-navigation/native';
 
-import {styles} from './styles';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {placeHolderImage} from '../../constants/placeHolderImage';
 import {RootStackParamList} from '../../types/RootStackParamList';
+
+import {styles} from './styles';
 
 type EventListItemProps = {
   _id: string;
@@ -25,6 +27,7 @@ type EventListItemProps = {
   };
   date: Date;
   images?: string[];
+  category: string;
 };
 
 const EventListItem = ({
@@ -33,6 +36,7 @@ const EventListItem = ({
   venue,
   date,
   images,
+  category,
 }: EventListItemProps) => {
   const navigation =
     useNavigation<
@@ -43,8 +47,6 @@ const EventListItem = ({
     navigation.navigate('EventDetail', {eventId: _id});
   };
 
-  const replaceImage =
-    'https://static.vecteezy.com/system/resources/previews/024/232/464/original/theater-concert-stage-with-curtain-cartoon-scene-free-vector.jpg';
   return (
     <Pressable style={styles.container} onPress={handlePress}>
       <View style={styles.infoContainer}>
@@ -65,7 +67,13 @@ const EventListItem = ({
       </View>
       <Image
         source={{
-          uri: images && images.length > 0 ? images[0] : replaceImage,
+          uri:
+            images && images.length > 0
+              ? images[0]
+              : placeHolderImage[
+                  (category.toLowerCase() as keyof typeof placeHolderImage) ||
+                    'default'
+                ],
         }}
         style={styles.image}
       />

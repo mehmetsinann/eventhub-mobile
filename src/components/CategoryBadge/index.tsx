@@ -1,5 +1,6 @@
 import {View, Text} from 'react-native';
 import React from 'react';
+
 import {styles} from './styles';
 
 type CategoryBadgeProps = {
@@ -18,7 +19,7 @@ export const CategoryBadge = ({category}: CategoryBadgeProps) => {
       style={[
         styles.box,
         {
-          backgroundColor: BADGE_COLORS[category.toLowerCase()] || '#DDD',
+          backgroundColor: BADGE_COLORS[category.toLowerCase()] || '#BBB',
         },
       ]}>
       <Text style={styles.text}>{category}</Text>
