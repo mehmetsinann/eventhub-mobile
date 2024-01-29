@@ -5,6 +5,10 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  noEventText: {
+    marginHorizontal: 20,
+    fontSize: 16,
+  },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',

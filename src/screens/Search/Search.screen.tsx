@@ -1,4 +1,11 @@
-import {View, SafeAreaView, TextInput, Pressable, FlatList} from 'react-native';
+import {
+  View,
+  SafeAreaView,
+  TextInput,
+  Pressable,
+  FlatList,
+  Text,
+} from 'react-native';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 
 import moment from 'moment';
@@ -47,7 +54,7 @@ const Search = ({route}: SearchProps) => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <View style={styles.searchContainer}>
         <Pressable onPress={goBack}>
           <Icon name="chevron-back-outline" size={32} />
@@ -61,6 +68,9 @@ const Search = ({route}: SearchProps) => {
           ref={inputRef}
         />
       </View>
+      {(search || searchText) && !events.length && (
+        <Text style={styles.noEventText}>No events found</Text>
+      )}
       <FlatList
         data={getEventList(events)}
         renderItem={({item}) => (
