@@ -7,6 +7,7 @@ import {
   ScrollView,
   ActivityIndicator,
   Pressable,
+  RefreshControl,
 } from 'react-native';
 
 import {useDispatch, useSelector} from 'react-redux';
@@ -28,6 +29,7 @@ const Home = () => {
   const dispatch: any = useDispatch();
   const navigation: any = useNavigation();
   const [mode, setMode] = useState<'Upcoming' | 'Past'>('Upcoming');
+  const [refreshing, setRefreshing] = useState(false);
   const filter = useSelector((state: RootState) => state.filter);
   const events = useSelector((state: RootState) => state.events.events);
   const status = useSelector((state: RootState) => state.events.status);
@@ -62,6 +64,14 @@ const Home = () => {
     );
   }
 
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await dispatch(fetchEvents());
+    if (status === 'succeeded') {
+      setRefreshing(false);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -73,13 +83,18 @@ const Home = () => {
           <Icon name="search-outline" size={28} />
         </Pressable>
       </View>
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
         {events.length > 0 && (
-          <View style={styles.carouselContainer}>
-            <Text style={styles.sectionTitle}>Highlights</Text>
+          <>
+            <View style={styles.carouselContainer}>
+              <Text style={styles.sectionTitle}>Highlights</Text>
+            </View>
             <Carousel
               loop
-              width={screenWidth - 40}
+              width={screenWidth}
               height={screenHeight / 4}
               autoPlay={true}
               autoPlayInterval={3000}
@@ -96,7 +111,7 @@ const Home = () => {
                 />
               )}
             />
-          </View>
+          </>
         )}
 
         <View style={styles.eventList}>

@@ -2,9 +2,9 @@ import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    height: '100%',
-    borderRadius: 12,
+    marginHorizontal: 20,
+    height: 200,
+    borderRadius: 10,
   },
   image: {
     width: '100%',

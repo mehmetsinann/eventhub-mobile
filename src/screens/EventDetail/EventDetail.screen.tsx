@@ -56,6 +56,10 @@ const EventDetail = ({route}: EventDetailProps) => {
     navigation.navigate('WebView', {uri: URL});
   };
 
+  const listStyle = () => {
+    return '\u2022' + ' ';
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -123,38 +127,42 @@ const EventDetail = ({route}: EventDetailProps) => {
           <Text style={styles.descriptionTitle}>Artists</Text>
           {event?.artists.map(artist => (
             <Text key={artist.name} style={styles.description}>
+              {listStyle()}
               {artist.name}
             </Text>
           ))}
         </View>
         <View style={styles.descriptionContainer}>
           <Text style={styles.descriptionTitle}>Tickets</Text>
-          {event?.is_free && <Text>This event is free!</Text>}
+          {event?.is_free && <Text>This event is completely free!</Text>}
           {event?.ticket_info &&
             !event.is_free &&
             Object.entries(event.ticket_info).map(([category, price]) => (
               <Text key={category} style={styles.description}>
+                {listStyle()}
                 {(category.charAt(0).toUpperCase() + category.slice(1))
                   .split('_')
-                  .join(' ')}{' '}
-                - <Text style={styles.price}>{price}</Text>
+                  .join(' ')}
+                {' - '}
+                <Text style={styles.price}>{price}</Text>
               </Text>
             ))}
         </View>
         <View style={styles.descriptionContainer}>
           <Text style={styles.descriptionTitle}>Rules</Text>
-          <Text style={styles.description}>
-            Age limit: {event?.rules.age_limit}
-          </Text>
-          <Text style={styles.description}>
-            Alcohol: {event?.rules.alcohol ? 'Allowed' : 'Not allowed'}
-          </Text>
-          <Text style={styles.description}>
-            Dress code: {event?.rules.dress_code}
-          </Text>
-          <Text style={styles.description}>
-            Camera allowed: {event?.rules.camera_allowed ? 'Yes' : 'No'}
-          </Text>
+          {event &&
+            Object.entries(event?.rules).map(([rule, value]) => (
+              <Text key={rule} style={styles.description}>
+                {listStyle()}
+                {(rule.charAt(0).toUpperCase() + rule.slice(1))
+                  .split('_')
+                  .join(' ')}
+                {' - '}
+                <Text style={styles.price}>
+                  {typeof value === 'boolean' ? (value ? 'Yes' : 'No') : value}
+                </Text>
+              </Text>
+            ))}
         </View>
         <View style={styles.descriptionContainer}>
           <Text style={styles.descriptionTitle}>Address</Text>

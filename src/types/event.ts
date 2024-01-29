@@ -18,10 +18,7 @@ export type Event = {
   };
   is_free: boolean;
   ticket_info: {
-    first_category: string;
-    second_category: string;
-    third_category: string;
-    fourth_category: string;
+    [key: string]: string | undefined;
   };
   rules: {
     age_limit: number;
