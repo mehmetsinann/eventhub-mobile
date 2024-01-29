@@ -1,14 +1,14 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, SafeAreaView, Pressable, Button} from 'react-native';
 
 import {useDispatch, useSelector} from 'react-redux';
 import moment from 'moment';
-import axios from 'axios';
 import Icon from 'react-native-vector-icons/Ionicons';
 import DatePicker from 'react-native-date-picker';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
+import {getCategories} from '../../services/eventsDataManager';
 import {RootStackParamList} from '../../types/RootStackParamList';
 import {
   setFilterCategory,
@@ -24,28 +24,25 @@ const Filter = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const filterState = useSelector((state: RootState) => state.filter);
-  const [categories, setCategories] = React.useState<string[]>([]);
-  const [startDate, setStartDate] = React.useState<Date | null>(
+  const [categories, setCategories] = useState<string[]>([]);
+  const [startDate, setStartDate] = useState<Date | null>(
     filterState.startDate || null,
   );
-  const [endDate, setEndDate] = React.useState<Date | null>(
+  const [endDate, setEndDate] = useState<Date | null>(
     filterState.endDate || null,
   );
-  const [selectedCategory, setSelectedCategory] = React.useState<string>(
+  const [selectedCategory, setSelectedCategory] = useState<string>(
     filterState.category || '',
   );
-  const [isDateRange, setIsDateRange] = React.useState<boolean>(
+  const [isDateRange, setIsDateRange] = useState<boolean>(
     filterState.endDate !== null,
   );
 
   useEffect(() => {
-    getCategories();
+    getCategories().then(_categories => {
+      setCategories(_categories);
+    });
   }, []);
-
-  const getCategories = async () => {
-    const response = await axios.get('http://localhost:3000/events/categories');
-    setCategories(response.data);
-  };
 
   const goBack = () => {
     navigation.goBack();

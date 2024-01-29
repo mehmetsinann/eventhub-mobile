@@ -29,5 +29,6 @@ export const styles = StyleSheet.create({
   infoText: {
     fontSize: 16,
     marginLeft: 10,
+    fontWeight: '500',
   },
 });

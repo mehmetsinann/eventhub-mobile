@@ -3,10 +3,9 @@ import React from 'react';
 
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/Ionicons';
-import moment from 'moment';
 import {useNavigation} from '@react-navigation/native';
 
-import {placeHolderImage} from '../../constants/placeHolderImage';
+import {formatDate, getPlaceHolderImage} from '../../utils/eventUtils';
 import {RootStackParamList} from '../../types/RootStackParamList';
 
 import {styles} from './styles';
@@ -60,9 +59,7 @@ const EventListItem = ({
         </View>
         <View style={styles.info}>
           <Icon name="calendar-clear-outline" size={24} />
-          <Text style={styles.infoText}>
-            {moment(date).format('DD MMM, YYYY HH:MM')}
-          </Text>
+          <Text style={styles.infoText}>{formatDate(date)}</Text>
         </View>
       </View>
       <Image
@@ -70,10 +67,7 @@ const EventListItem = ({
           uri:
             images && images.length > 0
               ? images[0]
-              : placeHolderImage[
-                  (category.toLowerCase() as keyof typeof placeHolderImage) ||
-                    'default'
-                ],
+              : getPlaceHolderImage(category),
         }}
         style={styles.image}
       />

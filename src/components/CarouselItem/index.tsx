@@ -5,10 +5,9 @@ import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
-import moment from 'moment';
 
 import {RootStackParamList} from '../../types/RootStackParamList';
-import {placeHolderImage} from '../../constants/placeHolderImage';
+import {formatDate, getPlaceHolderImage} from '../../utils/eventUtils';
 
 import {styles} from './styles';
 
@@ -52,12 +51,7 @@ const CarouselItem = ({
     <Pressable style={styles.container} onPress={handlePress}>
       <Image
         source={{
-          uri:
-            imageURI ||
-            placeHolderImage[
-              (category.toLowerCase() as keyof typeof placeHolderImage) ||
-                'default'
-            ],
+          uri: imageURI || getPlaceHolderImage(category),
         }}
         style={styles.image}
       />
@@ -76,9 +70,7 @@ const CarouselItem = ({
         </View>
         <View style={styles.info}>
           <Icon name="calendar-clear-outline" size={24} />
-          <Text style={styles.infoText}>
-            {moment(date).format('DD MMM, YYYY HH:MM')}
-          </Text>
+          <Text style={styles.infoText}>{formatDate(date)}</Text>
         </View>
       </LinearGradient>
     </Pressable>

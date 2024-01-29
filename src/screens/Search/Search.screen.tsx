@@ -1,11 +1,12 @@
 import {View, SafeAreaView, TextInput, Pressable, FlatList} from 'react-native';
-import React, {useCallback, useEffect, useRef} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 
 import moment from 'moment';
-import axios from 'axios';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 
+import {getEventList} from '../../utils/eventUtils';
+import {searchEvents} from '../../services/eventsDataManager';
 import EventListItem from '../../components/EventListItem';
 import {Event} from '../../types/Event';
 
@@ -22,8 +23,8 @@ export type SearchProps = {
 const Search = ({route}: SearchProps) => {
   const {searchText} = route.params;
   const inputRef = useRef<TextInput>(null);
-  const [events, setEvents] = React.useState<Event[]>([]);
-  const [search, setSearch] = React.useState<string>('');
+  const [events, setEvents] = useState<Event[]>([]);
+  const [search, setSearch] = useState<string>('');
   const navigation: any = useNavigation();
 
   useEffect(() => {
@@ -31,18 +32,13 @@ const Search = ({route}: SearchProps) => {
   }, []);
 
   const getSearchedEvents = useCallback(async () => {
-    const response =
-      search || searchText
-        ? await axios.get(
-            'http://localhost:3000/events/search?query=' +
-              (search || searchText),
-          )
-        : null;
-    const data = await response?.data;
-    setEvents(data);
+    (search || searchText) &&
+      searchEvents(search || searchText).then(data => {
+        setEvents(data);
+      });
   }, [search, searchText]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     getSearchedEvents();
   }, [getSearchedEvents]);
 
@@ -66,7 +62,7 @@ const Search = ({route}: SearchProps) => {
         />
       </View>
       <FlatList
-        data={events}
+        data={getEventList(events)}
         renderItem={({item}) => (
           <EventListItem
             _id={item._id}
@@ -78,7 +74,6 @@ const Search = ({route}: SearchProps) => {
           />
         )}
         keyExtractor={item => item._id}
-        scrollEnabled={false}
         style={styles.eventList}
       />
     </SafeAreaView>

@@ -2,6 +2,7 @@
 import axios from 'axios';
 import {createSlice, createAsyncThunk, PayloadAction} from '@reduxjs/toolkit';
 
+import {EVENTS_ENDPOINT} from '../../constants/apiEndpoints';
 import {Event} from '../../types/Event';
 
 export interface EventsState {
@@ -14,7 +15,7 @@ export interface EventsState {
 export const fetchEvents = createAsyncThunk<Event[], string | undefined>(
   'events/fetchEvents',
   async () => {
-    const response = await axios.get<Event[]>('http://localhost:3000/events');
+    const response = await axios.get<Event[]>(`${EVENTS_ENDPOINT}`);
     return response.data;
   },
 );

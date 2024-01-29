@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Text,
   SafeAreaView,
@@ -15,6 +15,7 @@ import Carousel from 'react-native-reanimated-carousel';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 
+import {getEventList} from '../../utils/eventUtils';
 import {screenHeight, screenWidth} from '../../constants/screenDimensions';
 import {RootState} from '../../redux/store';
 import {fetchEvents} from '../../redux/slices/eventSlice';
@@ -26,23 +27,11 @@ import {styles} from './Home.style';
 const Home = () => {
   const dispatch: any = useDispatch();
   const navigation: any = useNavigation();
-  const [mode, setMode] = React.useState<'Upcoming' | 'Past'>('Upcoming');
+  const [mode, setMode] = useState<'Upcoming' | 'Past'>('Upcoming');
   const filter = useSelector((state: RootState) => state.filter);
   const events = useSelector((state: RootState) => state.events.events);
   const status = useSelector((state: RootState) => state.events.status);
   const error = useSelector((state: RootState) => state.events.error);
-
-  const eventList = () => {
-    const upcomingEvents = events.filter(event => {
-      return moment(event.start_date).isAfter(moment());
-    });
-
-    const pastEvents = events.filter(event => {
-      return moment(event.start_date).isBefore(moment());
-    });
-
-    return mode === 'Upcoming' ? [...upcomingEvents] : [...pastEvents];
-  };
 
   useEffect(() => {
     dispatch(fetchEvents());
@@ -58,16 +47,16 @@ const Home = () => {
 
   if (status === 'loading') {
     return (
-      <SafeAreaView>
+      <SafeAreaView style={styles.status}>
         <ActivityIndicator size="large" />
       </SafeAreaView>
     );
   }
 
   if (status === 'failed') {
-    console.log(error);
+    console.error('Error fetching events: ', error);
     return (
-      <SafeAreaView>
+      <SafeAreaView style={styles.status}>
         <Text>Something went wrong!</Text>
       </SafeAreaView>
     );
@@ -77,7 +66,6 @@ const Home = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>EventHub</Text>
-
         <Pressable
           onPress={() => {
             navigateTo('Search', {searchText: ''});
@@ -130,31 +118,7 @@ const Home = () => {
             )}
           </View>
           <FlatList
-            data={
-              mode === 'Upcoming'
-                ? eventList().filter(event => {
-                    if (filter.category && filter.category !== event.category) {
-                      return false;
-                    }
-
-                    if (
-                      filter.startDate &&
-                      moment(filter.startDate).isAfter(event.start_date)
-                    ) {
-                      return false;
-                    }
-
-                    if (
-                      filter.endDate &&
-                      moment(filter.endDate).isBefore(event.end_date)
-                    ) {
-                      return false;
-                    }
-
-                    return true;
-                  })
-                : eventList()
-            }
+            data={getEventList(events, mode, filter)}
             renderItem={({item}) => (
               <EventListItem
                 _id={item._id}

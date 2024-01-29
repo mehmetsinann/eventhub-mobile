@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   View,
   Text,
@@ -7,10 +8,8 @@ import {
   Share,
   ScrollView,
 } from 'react-native';
-import React from 'react';
 
 import {useSelector} from 'react-redux';
-import moment from 'moment';
 import Carousel from 'react-native-reanimated-carousel';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
@@ -21,7 +20,7 @@ import {CategoryBadge} from '../../components/CategoryBadge';
 import {Event} from '../../types/Event';
 import {RootStackParamList} from '../../types/RootStackParamList';
 import {screenHeight, screenWidth} from '../../constants/screenDimensions';
-import {placeHolderImage} from '../../constants/placeHolderImage';
+import {formatDate, getPlaceHolderImage} from '../../utils/eventUtils';
 
 import {styles} from './EventDetail.style';
 
@@ -84,8 +83,8 @@ const EventDetail = ({route}: EventDetailProps) => {
         <View style={styles.info}>
           <Icon name="calendar-clear-outline" size={20} color={'#777'} />
           <Text style={styles.infoText}>
-            {event && moment(event.start_date).format('DD MMM, YYYY HH:MM')} -{' '}
-            {event && moment(event.end_date).format('DD MMM, YYYY HH:MM')}
+            {event && formatDate(event.start_date)} -{' '}
+            {event && formatDate(event.end_date)}
           </Text>
         </View>
       </View>
@@ -93,12 +92,7 @@ const EventDetail = ({route}: EventDetailProps) => {
         {event?.images && event?.images.length < 2 ? (
           <Image
             source={{
-              uri:
-                event?.images[0] ||
-                placeHolderImage[
-                  (event.category.toLowerCase() as keyof typeof placeHolderImage) ||
-                    'default'
-                ],
+              uri: event?.images[0] || getPlaceHolderImage(event.category),
             }}
             style={styles.image}
           />
