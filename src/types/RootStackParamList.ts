@@ -7,4 +7,7 @@ export type RootStackParamList = {
   Search: {
     searchText: string;
   };
+  WebView: {
+    uri: string;
+  };
 };

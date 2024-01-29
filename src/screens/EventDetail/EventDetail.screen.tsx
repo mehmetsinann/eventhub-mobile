@@ -48,8 +48,13 @@ const EventDetail = ({route}: EventDetailProps) => {
   const handleShare = async () => {
     Share.share({
       message: `Check out this event: ${event?.name}`,
-      url: 'https://eventhub.com',
+      url: 'https://eventhub.com/event?id=' + event?._id,
     });
+  };
+
+  const handleAddressClick = () => {
+    const URL = `https://www.google.com/maps/search/?api=1&query=${event?.venue.latitude},${event?.venue.longitude}`;
+    navigation.navigate('WebView', {uri: URL});
   };
 
   return (
@@ -159,11 +164,13 @@ const EventDetail = ({route}: EventDetailProps) => {
         </View>
         <View style={styles.descriptionContainer}>
           <Text style={styles.descriptionTitle}>Address</Text>
-          <Text style={styles.description}>
-            {event?.venue.name} - {event?.venue.street_number}{' '}
-            {event?.venue.street}, {event?.venue.city}, {event?.venue.state},{' '}
-            {event?.venue.country}
-          </Text>
+          <Pressable onPress={handleAddressClick}>
+            <Text style={styles.description}>
+              {event?.venue.name} - {event?.venue.street_number}{' '}
+              {event?.venue.street}, {event?.venue.city}, {event?.venue.state},{' '}
+              {event?.venue.country}
+            </Text>
+          </Pressable>
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -6,6 +6,7 @@ import Home from '../screens/Home';
 import Filter from '../screens/Filter';
 import EventDetail from '../screens/EventDetail';
 import Search from '../screens/Search';
+import WebViewScreen from '../screens/WebView';
 import {RootStackParamList} from '../types/RootStackParamList';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -26,6 +27,13 @@ const AppStack = () => {
         component={Filter}
       />
       <Stack.Screen name="Search" component={Search} />
+      <Stack.Screen
+        name="WebView"
+        component={WebViewScreen}
+        options={{
+          presentation: 'modal',
+        }}
+      />
     </Stack.Navigator>
   );
 };
