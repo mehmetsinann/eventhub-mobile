@@ -112,6 +112,7 @@ const Filter = () => {
             date={startDate || new Date()}
             mode="date"
             onDateChange={setStartDate}
+            minimumDate={moment().toDate()}
           />
         </View>
         {isDateRange && (
@@ -121,6 +122,7 @@ const Filter = () => {
               date={endDate || new Date()}
               mode="date"
               onDateChange={setEndDate}
+              minimumDate={moment().toDate()}
             />
           </View>
         )}
