@@ -35,13 +35,14 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   category: {
-    backgroundColor: '#DDD',
+    borderWidth: 1,
+    borderColor: '#DDD',
     padding: 10,
     borderRadius: 10,
     margin: 5,
   },
   selectedCategory: {
-    backgroundColor: '#BBB',
+    backgroundColor: '#DDD',
   },
   categoryText: {
     fontSize: 16,

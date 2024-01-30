@@ -17,6 +17,15 @@ export const styles = StyleSheet.create({
     paddingVertical: 10,
     marginBottom: 10,
   },
+  appLogo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  appIcon: {
+    width: 32,
+    height: 32,
+    marginRight: 8,
+  },
   title: {
     fontSize: 28,
     fontWeight: 'bold',

@@ -60,6 +60,10 @@ const EventDetail = ({route}: EventDetailProps) => {
     return '\u2022' + ' ';
   };
 
+  const handleNavigate = (param: string | undefined) => {
+    navigation.push('Search', {searchText: param || ''});
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -72,12 +76,19 @@ const EventDetail = ({route}: EventDetailProps) => {
       </View>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>{event?.name}</Text>
-        {event?.category && <CategoryBadge category={event?.category} />}
+        {event?.category && (
+          <Pressable
+            onPress={() => {
+              handleNavigate(event?.category);
+            }}>
+            <CategoryBadge category={event?.category} />
+          </Pressable>
+        )}
       </View>
       <View style={styles.infoContainer}>
         <Pressable
           onPress={() => {
-            navigation.push('Search', {searchText: event?.venue.name || ''});
+            handleNavigate(event?.venue.name);
           }}>
           <View style={styles.info}>
             <Icon name="location-outline" size={20} color={'#777'} />
@@ -86,7 +97,13 @@ const EventDetail = ({route}: EventDetailProps) => {
         </Pressable>
         <View style={styles.info}>
           <Icon name="calendar-clear-outline" size={20} color={'#777'} />
-          <Text style={styles.infoText}>
+          <Text
+            style={[
+              styles.infoText,
+              event &&
+                new Date(event?.start_date) < new Date() &&
+                styles.pastDate,
+            ]}>
             {event && formatDate(event.start_date)} -{' '}
             {event && formatDate(event.end_date)}
           </Text>

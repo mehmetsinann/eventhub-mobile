@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   Pressable,
   RefreshControl,
+  Image,
 } from 'react-native';
 
 import {useDispatch, useSelector} from 'react-redux';
@@ -75,7 +76,13 @@ const Home = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>EventHub</Text>
+        <View style={styles.appLogo}>
+          <Image
+            source={require('../../../assets/icon.png')}
+            style={styles.appIcon}
+          />
+          <Text style={styles.title}>EventHub</Text>
+        </View>
         <Pressable
           onPress={() => {
             navigateTo('Search', {searchText: ''});
@@ -90,7 +97,7 @@ const Home = () => {
         {events.length > 0 && (
           <>
             <View style={styles.carouselContainer}>
-              <Text style={styles.sectionTitle}>Highlights</Text>
+              <Text style={styles.sectionTitle}>Featured Events</Text>
             </View>
             <Carousel
               loop
@@ -120,7 +127,10 @@ const Home = () => {
               onPress={() => {
                 handleChangeMode(mode === 'Upcoming' ? 'Past' : 'Upcoming');
               }}>
-              <Text style={styles.sectionTitle}>{mode} Events</Text>
+              <Text style={styles.sectionTitle}>
+                {mode}{' '}
+                {((mode === 'Upcoming' && filter.category) || 'Event') + 's'}
+              </Text>
             </Pressable>
 
             {events.length > 0 && mode === 'Upcoming' && (

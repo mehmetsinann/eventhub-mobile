@@ -35,6 +35,9 @@ export const styles = StyleSheet.create({
     marginLeft: 10,
     color: '#777',
   },
+  pastDate: {
+    textDecorationLine: 'line-through',
+  },
   image: {
     marginHorizontal: 20,
     height: 200,
