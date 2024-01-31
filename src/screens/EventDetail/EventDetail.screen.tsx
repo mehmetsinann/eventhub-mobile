@@ -64,6 +64,10 @@ const EventDetail = ({route}: EventDetailProps) => {
     navigation.push('Search', {searchText: param || ''});
   };
 
+  const renderCarouselItem = ({item}: any) => {
+    return <Image source={{uri: item}} style={styles.image} />;
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -126,14 +130,7 @@ const EventDetail = ({route}: EventDetailProps) => {
             autoPlayInterval={3000}
             data={event?.images || []}
             scrollAnimationDuration={1000}
-            renderItem={({item}) => (
-              <Image
-                source={{
-                  uri: item,
-                }}
-                style={styles.image}
-              />
-            )}
+            renderItem={renderCarouselItem}
           />
         )}
         <View style={styles.descriptionContainer}>

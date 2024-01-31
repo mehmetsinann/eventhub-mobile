@@ -30,7 +30,6 @@ const Home = () => {
   const dispatch: any = useDispatch();
   const navigation: any = useNavigation();
   const [mode, setMode] = useState<'Upcoming' | 'Past'>('Upcoming');
-  const [refreshing, setRefreshing] = useState(false);
   const filter = useSelector((state: RootState) => state.filter);
   const events = useSelector((state: RootState) => state.events.events);
   const status = useSelector((state: RootState) => state.events.status);
@@ -48,7 +47,37 @@ const Home = () => {
     setMode(_mode);
   };
 
-  if (status === 'loading') {
+  const onRefresh = async () => {
+    await dispatch(fetchEvents());
+  };
+
+  const renderCarouselItem = ({item}: any) => {
+    return (
+      <CarouselItem
+        _id={item._id}
+        name={item.name}
+        venue={item.venue}
+        date={moment(item.start_date).toDate()}
+        imageURI={item.images[0]}
+        category={item.category}
+      />
+    );
+  };
+
+  const renderListItem = ({item}: any) => {
+    return (
+      <EventListItem
+        _id={item._id}
+        name={item.name}
+        venue={item.venue}
+        date={moment(item.start_date).toDate()}
+        images={item.images}
+        category={item.category}
+      />
+    );
+  };
+
+  if (status === 'loading' && !events.length) {
     return (
       <SafeAreaView style={styles.status}>
         <ActivityIndicator size="large" />
@@ -64,14 +93,6 @@ const Home = () => {
       </SafeAreaView>
     );
   }
-
-  const onRefresh = async () => {
-    setRefreshing(true);
-    await dispatch(fetchEvents());
-    if (status === 'succeeded') {
-      setRefreshing(false);
-    }
-  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -92,7 +113,10 @@ const Home = () => {
       </View>
       <ScrollView
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          <RefreshControl
+            refreshing={status === 'loading'}
+            onRefresh={onRefresh}
+          />
         }>
         {events.length > 0 && (
           <>
@@ -107,16 +131,7 @@ const Home = () => {
               autoPlayInterval={3000}
               data={events.slice(0, 3)}
               scrollAnimationDuration={1000}
-              renderItem={({item}) => (
-                <CarouselItem
-                  _id={item._id}
-                  name={item.name}
-                  venue={item.venue}
-                  date={moment(item.start_date).toDate()}
-                  imageURI={item.images[0]}
-                  category={item.category}
-                />
-              )}
+              renderItem={renderCarouselItem}
             />
           </>
         )}
@@ -144,16 +159,7 @@ const Home = () => {
           </View>
           <FlatList
             data={getEventList(events, mode, filter)}
-            renderItem={({item}) => (
-              <EventListItem
-                _id={item._id}
-                name={item.name}
-                venue={item.venue}
-                date={moment(item.start_date).toDate()}
-                images={item.images}
-                category={item.category}
-              />
-            )}
+            renderItem={renderListItem}
             keyExtractor={item => item._id}
             scrollEnabled={false}
             ListEmptyComponent={<Text>No events found</Text>}

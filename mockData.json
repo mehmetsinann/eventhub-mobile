@@ -1,0 +1,443 @@
+[
+  {
+    "venue": {
+      "name": "City Arena",
+      "latitude": 40.7128,
+      "longitude": -74.006,
+      "street_number": "123",
+      "street": "Rock Street",
+      "city": "Metropolis",
+      "state": "NY",
+      "country": "USA",
+      "timezone": "America/New_York"
+    },
+    "rules": {
+      "age_limit": 18,
+      "alcohol": true,
+      "dress_code": "Casual",
+      "camera_allowed": true
+    },
+    "name": "Rock Night",
+    "description": "An amazing rock concert with various bands.",
+    "category": "Concert",
+    "start_date": "2024-03-15T16:00:00.000Z",
+    "end_date": "2024-03-15T20:00:00.000Z",
+    "images": [
+      "https://i.pinimg.com/originals/f2/1f/f6/f21ff668227064677fc4651cec215e0d.jpg",
+      "https://media.istockphoto.com/id/161838634/tr/fotoğraf/rock-concert.jpg?s=612x612&w=0&k=20&c=7KW8mgwDB0EJpwXzggia4haJMLnSTSO1oW0pt1_7pN0="
+    ],
+    "is_free": false,
+    "ticket_info": {
+      "first_category": "200$",
+      "second_category": "150$",
+      "third_category": "100$",
+      "fourth_category": "50$"
+    },
+    "artists": [
+      {
+        "name": "The Rockers",
+        "role": "Main Band"
+      },
+      {
+        "name": "Soloist Singer",
+        "role": "Opening Act"
+      }
+    ]
+  },
+  {
+    "venue": {
+      "name": "Opera House",
+      "latitude": 48.8566,
+      "longitude": 2.3522,
+      "street_number": "789",
+      "street": "Opera Street",
+      "city": "Harmonyville",
+      "state": "HV",
+      "country": "France",
+      "timezone": "Europe/Paris"
+    },
+    "rules": {
+      "age_limit": 16,
+      "alcohol": true,
+      "dress_code": "Elegant",
+      "camera_allowed": false
+    },
+    "name": "La Traviata",
+    "description": "An enchanting opera performance of Verdi's La Traviata.",
+    "category": "Opera",
+    "start_date": "2024-05-25T17:00:00.000Z",
+    "end_date": "2024-05-25T19:30:00.000Z",
+    "images": [
+      "https://upload.wikimedia.org/wikipedia/commons/0/0d/Catherine_Malfitano_dans_Traviata_par_Claude_Truong-Ngoc_1980.jpg"
+    ],
+    "is_free": false,
+    "ticket_info": {
+      "first_category": "120$",
+      "second_category": "100$",
+      "third_category": "80$",
+      "fourth_category": "60$"
+    },
+    "artists": [
+      {
+        "name": "Opera Diva",
+        "role": "Lead Soprano",
+        "_id": "65b37855d4f5e949c7a4ef96"
+      },
+      {
+        "name": "Tenor Maestro",
+        "role": "Lead Tenor"
+      },
+      {
+        "name": "Orchestra Harmony",
+        "role": "Orchestra"
+      }
+    ]
+  },
+  {
+    "venue": {
+      "name": "Music Stadium",
+      "latitude": 34.0522,
+      "longitude": -118.2437,
+      "street_number": "789",
+      "street": "Music Avenue",
+      "city": "Entertainment City",
+      "state": "CA",
+      "country": "USA",
+      "timezone": "America/Los_Angeles"
+    },
+    "rules": {
+      "age_limit": 16,
+      "alcohol": true,
+      "dress_code": "Casual",
+      "camera_allowed": true
+    },
+    "name": "Pop Extravaganza",
+    "description": "A lively pop music festival featuring top artists.",
+    "category": "Concert",
+    "start_date": "2024-04-10T15:30:00.000Z",
+    "end_date": "2024-04-10T19:00:00.000Z",
+    "images": [
+      "https://i0.wp.com/industryme.co.uk/wp-content/uploads/2021/09/photo-1619229665486-19f7ee2987a5.jpeg?fit=1650%2C1100&ssl=1",
+      "https://www.thirteen.org/wp-content/uploads/sites/2/2018/08/FooFighters-LandmarksLiveinConcert-e1533155413789.jpg"
+    ],
+    "is_free": true,
+    "artists": [
+      {
+        "name": "Pop Sensation",
+        "role": "Headliner"
+      },
+      {
+        "name": "Dance Crew",
+        "role": "Special Performance"
+      }
+    ]
+  },
+  {
+    "venue": {
+      "name": "Laugh Haven",
+      "latitude": 40.7128,
+      "longitude": -74.006,
+      "street_number": "456",
+      "street": "Comedy Street",
+      "city": "Humorville",
+      "state": "NY",
+      "country": "USA",
+      "timezone": "America/New_York"
+    },
+    "rules": {
+      "age_limit": 18,
+      "alcohol": true,
+      "dress_code": "Smart Casual",
+      "camera_allowed": true
+    },
+    "name": "Classic Comedy Night",
+    "description": "A night filled with laughter featuring top stand-up comedians.",
+    "category": "Theater",
+    "start_date": "2024-05-05T17:00:00.000Z",
+    "end_date": "2024-05-05T19:30:00.000Z",
+    "images": [
+      "https://thehomewoodtricorne.com/wp-content/uploads/2023/11/IMG_5436-e1700078259992-1200x766.jpg"
+    ],
+    "is_free": true,
+    "artists": [
+      {
+        "name": "Stand-up Star",
+        "role": "Main Act"
+      },
+      {
+        "name": "Comedy Duo",
+        "role": "Opening Act"
+      }
+    ]
+  },
+  {
+    "venue": {
+      "name": "Harmony Hall",
+      "latitude": 34.0522,
+      "longitude": -118.2437,
+      "street_number": "456",
+      "street": "Melody Lane",
+      "city": "Music City",
+      "state": "CA",
+      "country": "USA",
+      "timezone": "America/Los_Angeles"
+    },
+    "rules": {
+      "age_limit": 18,
+      "alcohol": true,
+      "dress_code": "Smart Casual",
+      "camera_allowed": true
+    },
+    "name": "Jazz Fusion Night",
+    "description": "A fusion of jazz, blues, and electronic music in a unique concert.",
+    "category": "Concert",
+    "start_date": "2024-07-10T17:00:00.000Z",
+    "end_date": "2024-07-10T20:00:00.000Z",
+    "images": [],
+    "is_free": false,
+    "ticket_info": {
+      "first_category": "$100",
+      "second_category": "$50",
+      "third_category": "$30",
+      "fourth_category": "$80"
+    },
+    "artists": [
+      {
+        "name": "Jazz Fusion Masters",
+        "role": "Headliner"
+      },
+      {
+        "name": "Electronic Beats",
+        "role": "Special Performance"
+      }
+    ]
+  },
+  {
+    "venue": {
+      "name": "Grand Opera House",
+      "latitude": 48.8566,
+      "longitude": 2.3522,
+      "street_number": "789",
+      "street": "Opera Avenue",
+      "city": "Cultural City",
+      "state": "CC",
+      "country": "France",
+      "timezone": "Europe/Paris"
+    },
+    "rules": {
+      "age_limit": 16,
+      "alcohol": true,
+      "dress_code": "Elegant",
+      "camera_allowed": false
+    },
+    "name": "Classic Opera Gala",
+    "description": "An evening of classical arias and operatic masterpieces.",
+    "category": "Opera",
+    "start_date": "2024-08-15T16:30:00.000Z",
+    "end_date": "2024-08-15T19:30:00.000Z",
+    "images": [
+      "https://galasahne.com.tr/wp-content/uploads/2023/03/opera.jpg",
+      "https://ichef.bbci.co.uk/images/ic/1200x675/p0926st6.jpg"
+    ],
+    "is_free": false,
+    "ticket_info": {
+      "first_category": "$120",
+      "second_category": "$90",
+      "third_category": "$60",
+      "fourth_category": "$40"
+    },
+    "artists": [
+      {
+        "name": "Opera Diva",
+        "role": "Lead Soprano"
+      },
+      {
+        "name": "Tenor Maestro",
+        "role": "Lead Tenor"
+      },
+      {
+        "name": "Symphony Orchestra",
+        "role": "Orchestra"
+      }
+    ]
+  },
+  {
+    "venue": {
+      "name": "Alternative Arena",
+      "latitude": 40.7128,
+      "longitude": -74.006,
+      "street_number": "789",
+      "street": "Indie Street",
+      "city": "Eclectic City",
+      "state": "NY",
+      "country": "USA",
+      "timezone": "America/New_York"
+    },
+    "rules": {
+      "age_limit": 18,
+      "alcohol": true,
+      "dress_code": "Casual",
+      "camera_allowed": true
+    },
+    "name": "Indie Music Festival",
+    "description": "Discover the best independent music from various genres.",
+    "category": "Concert",
+    "start_date": "2024-10-12T14:30:00.000Z",
+    "end_date": "2024-10-12T19:00:00.000Z",
+    "images": [
+      "https://twobees.org/wp-content/uploads/2021/05/pexels-wendy-wei-1190297-1600x1067.jpg",
+      "https://middaycdn.s.llnwi.net/Radiocity-images/images/uploads/ziro.jpg"
+    ],
+    "is_free": false,
+    "ticket_info": {
+      "first_category": "$90",
+      "second_category": "$40",
+      "third_category": "$25",
+      "fourth_category": "$70"
+    },
+    "artists": [
+      {
+        "name": "Indie Icons",
+        "role": "Main Acts"
+      },
+      {
+        "name": "Emerging Artists",
+        "role": "New Talent Showcase"
+      }
+    ]
+  },
+  {
+    "venue": {
+      "name": "Symphony Hall",
+      "latitude": 48.8566,
+      "longitude": 2.3522,
+      "street_number": "456",
+      "street": "Symphony Avenue",
+      "city": "Classical City",
+      "state": "CC",
+      "country": "France",
+      "timezone": "Europe/Paris"
+    },
+    "rules": {
+      "age_limit": 14,
+      "alcohol": true,
+      "dress_code": "Formal",
+      "camera_allowed": false
+    },
+    "name": "Mozart Symphony",
+    "description": "A classical symphony showcasing the works of Mozart.",
+    "category": "Opera",
+    "start_date": "2024-01-20T16:00:00.000Z",
+    "end_date": "2024-01-20T18:30:00.000Z",
+    "images": [
+      "https://images.unsplash.com/photo-1647093429566-13315b954173?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    ],
+    "is_free": false,
+    "ticket_info": {
+      "first_category": "$150",
+      "second_category": "$100",
+      "third_category": "$70",
+      "fourth_category": "$50"
+    },
+    "artists": [
+      {
+        "name": "Mozart Philharmonic",
+        "role": "Orchestra"
+      },
+      {
+        "name": "Conductor Maestro",
+        "role": "Lead Conductor"
+      }
+    ]
+  },
+  {
+    "venue": {
+      "name": "City Arena",
+      "latitude": 40.7128,
+      "longitude": -74.006,
+      "street_number": "456",
+      "street": "Metal Street",
+      "city": "Metropolis",
+      "state": "NY",
+      "country": "USA",
+      "timezone": "America/New_York"
+    },
+    "rules": {
+      "age_limit": 21,
+      "alcohol": true,
+      "dress_code": "Rock Attire",
+      "camera_allowed": true
+    },
+    "name": "Metal Night",
+    "description": "A powerful metal concert featuring various bands.",
+    "category": "Concert",
+    "start_date": "2024-04-20T17:00:00.000Z",
+    "end_date": "2024-04-20T21:00:00.000Z",
+    "images": [
+      "https://images.unsplash.com/photo-1566150951155-4a59643d8a9f?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "https://images.unsplash.com/photo-1609800029525-b91fdea39774?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    ],
+    "is_free": false,
+    "ticket_info": {
+      "first_category": "250$",
+      "second_category": "180$",
+      "third_category": "120$",
+      "fourth_category": "70$"
+    },
+    "artists": [
+      {
+        "name": "Metal Masters",
+        "role": "Main Band"
+      },
+      {
+        "name": "Shredding Guitarist",
+        "role": "Opening Act"
+      }
+    ]
+  },
+  {
+    "venue": {
+      "name": "Royal Theater",
+      "latitude": 51.5074,
+      "longitude": -0.1278,
+      "street_number": "456",
+      "street": "Drama Avenue",
+      "city": "Theater City",
+      "state": "TC",
+      "country": "UK",
+      "timezone": "Europe/London"
+    },
+    "rules": {
+      "age_limit": 12,
+      "alcohol": false,
+      "dress_code": "Formal",
+      "camera_allowed": false
+    },
+    "name": "Shakespearean Drama",
+    "description": "A classic Shakespearean play performed by talented actors.",
+    "category": "Theater",
+    "start_date": "2024-04-20T15:30:00.000Z",
+    "end_date": "2024-04-20T18:00:00.000Z",
+    "images": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Daniel_Maclise_%281806-1870%29_-_Scene_from_%27Twelfth_Night%27_%28%27Malvolio_and_the_Countess%27%29_-_N00423_-_National_Gallery.jpg/640px-Daniel_Maclise_%281806-1870%29_-_Scene_from_%27Twelfth_Night%27_%28%27Malvolio_and_the_Countess%27%29_-_N00423_-_National_Gallery.jpg",
+      "https://static01.nyt.com/images/2013/11/11/arts/20131111TWELFTH-slide-HRFV/20131111TWELFTH-slide-HRFV-articleLarge.jpg?quality=75&auto=webp&disable=upscale"
+    ],
+    "is_free": false,
+    "ticket_info": {
+      "first_category": "100$",
+      "second_category": "75$",
+      "third_category": "50$",
+      "fourth_category": "40$"
+    },
+    "artists": [
+      {
+        "name": "Shakespearean Players",
+        "role": "Lead Actors"
+      },
+      {
+        "name": "Drama Ensemble",
+        "role": "Supporting Cast"
+      }
+    ]
+  }
+]

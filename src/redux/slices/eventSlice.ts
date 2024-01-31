@@ -15,7 +15,7 @@ export interface EventsState {
 export const fetchEvents = createAsyncThunk<Event[], string | undefined>(
   'events/fetchEvents',
   async () => {
-    const response = await axios.get<Event[]>(`${EVENTS_ENDPOINT}`);
+    const response = await axios.get<Event[]>(EVENTS_ENDPOINT);
     return response.data;
   },
 );
