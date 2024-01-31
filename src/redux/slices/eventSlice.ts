@@ -1,9 +1,8 @@
 // eventSlice.ts
-import axios from 'axios';
 import {createSlice, createAsyncThunk, PayloadAction} from '@reduxjs/toolkit';
 
-import {EVENTS_ENDPOINT} from '../../constants/apiEndpoints';
 import {Event} from '../../types/Event';
+import {getAllEvents} from '../../api/events';
 
 export interface EventsState {
   events: Event[];
@@ -11,16 +10,11 @@ export interface EventsState {
   error: string | null;
 }
 
-// Create an asynchronous thunk for fetching events with optional search
 export const fetchEvents = createAsyncThunk<Event[], string | undefined>(
   'events/fetchEvents',
-  async () => {
-    const response = await axios.get<Event[]>(EVENTS_ENDPOINT);
-    return response.data;
-  },
+  getAllEvents,
 );
 
-// Create a slice
 const eventSlice = createSlice({
   name: 'events',
   initialState: {
@@ -42,12 +36,10 @@ const eventSlice = createSlice({
         },
       )
       .addCase(fetchEvents.rejected, (state, action) => {
-        // Update the payload type
         state.status = 'failed';
-        state.error = action.payload as string; // Cast the payload to string
+        state.error = action.payload as string;
       });
   },
 });
 
-// Export the asynchronous thunk and reducer
 export default eventSlice.reducer;

@@ -22,7 +22,7 @@ import {screenHeight, screenWidth} from '../../constants/screenDimensions';
 import {RootState} from '../../redux/store';
 import {fetchEvents} from '../../redux/slices/eventSlice';
 import EventListItem from '../../components/EventListItem';
-import CarouselItem from '../../components/CarouselItem';
+import CarouselItem from '../../components/FeaeturedItem';
 
 import {styles} from './Home.style';
 
@@ -99,7 +99,7 @@ const Home = () => {
       <View style={styles.header}>
         <View style={styles.appLogo}>
           <Image
-            source={require('../../../assets/icon.png')}
+            source={require('../../assets/icon.png')}
             style={styles.appIcon}
           />
           <Text style={styles.title}>EventHub</Text>

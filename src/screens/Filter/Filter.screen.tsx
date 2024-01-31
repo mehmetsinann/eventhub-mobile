@@ -8,7 +8,7 @@ import DatePicker from 'react-native-date-picker';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-import {getCategories} from '../../services/eventsDataManager';
+import {getCategories} from '../../api/events';
 import {RootStackParamList} from '../../types/RootStackParamList';
 import {
   setFilterCategory,
@@ -119,7 +119,9 @@ const Filter = () => {
               date={endDate || new Date()}
               mode="date"
               onDateChange={setEndDate}
-              minimumDate={moment().toDate()}
+              minimumDate={
+                (startDate && moment(startDate).toDate()) || moment().toDate()
+              }
             />
           </View>
         )}

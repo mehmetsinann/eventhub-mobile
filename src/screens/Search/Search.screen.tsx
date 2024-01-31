@@ -13,7 +13,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 
 import {getEventList} from '../../utils/eventUtils';
-import {searchEvents} from '../../services/eventsDataManager';
+import {searchEvents} from '../../api/events';
 import EventListItem from '../../components/EventListItem';
 import {Event} from '../../types/Event';
 
