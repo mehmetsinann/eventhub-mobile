@@ -3,6 +3,7 @@ import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#FFF',
   },
   header: {
     flexDirection: 'row',
@@ -26,22 +27,22 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
   },
-  categoriesContainer: {
+  filterContainer: {
     paddingHorizontal: 20,
     marginTop: 10,
   },
-  categories: {
+  options: {
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
-  category: {
+  option: {
     borderWidth: 1,
     borderColor: '#DDD',
     padding: 10,
     borderRadius: 10,
     margin: 5,
   },
-  selectedCategory: {
+  selectedOption: {
     backgroundColor: '#DDD',
   },
   categoryText: {
@@ -57,11 +58,9 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  startDate: {},
-  endDate: {},
   applyButton: {
-    backgroundColor: 'green',
-    padding: 16,
+    backgroundColor: '#6FC276',
+    padding: 12,
     borderRadius: 10,
     marginHorizontal: 20,
     marginTop: 20,

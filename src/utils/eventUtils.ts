@@ -31,24 +31,38 @@ export const getEventList = (
   });
 
   if (mode === 'Upcoming') {
-    return upcomingEvents.filter(event => {
-      if (filter.category && filter.category !== event.category) {
-        return false;
-      }
+    return upcomingEvents
+      .filter(event => {
+        if (filter.category && filter.category !== event.category) {
+          return false;
+        }
 
-      if (
-        filter.startDate &&
-        moment(filter.startDate).isAfter(event.start_date)
-      ) {
-        return false;
-      }
+        if (
+          filter.startDate &&
+          moment(filter.startDate).isAfter(event.start_date)
+        ) {
+          return false;
+        }
 
-      if (filter.endDate && moment(filter.endDate).isBefore(event.end_date)) {
-        return false;
-      }
+        if (filter.endDate && moment(filter.endDate).isBefore(event.end_date)) {
+          return false;
+        }
 
-      return true;
-    });
+        if (
+          filter.eventType !== null &&
+          (filter.eventType === 'free') !== event.is_free
+        ) {
+          return false;
+        }
+
+        return true;
+      })
+      .sort((a, b) => {
+        if (filter.orderBy === 'date') {
+          return moment(a.start_date).diff(moment(b.start_date));
+        }
+        return a.name.localeCompare(b.name);
+      });
   }
   return pastEvents;
 };

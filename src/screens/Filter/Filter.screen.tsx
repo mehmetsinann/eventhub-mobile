@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, SafeAreaView, Pressable, Button} from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  Pressable,
+  Button,
+  ScrollView,
+} from 'react-native';
 
 import {useDispatch, useSelector} from 'react-redux';
 import moment from 'moment';
@@ -13,6 +20,8 @@ import {RootStackParamList} from '../../types/RootStackParamList';
 import {
   setFilterCategory,
   setFilterEndDate,
+  setFilterEventType,
+  setFilterOrderBy,
   setFilterStartDate,
 } from '../../redux/slices/filterSlice';
 import {RootState} from '../../redux/store';
@@ -25,6 +34,10 @@ const Filter = () => {
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const filterState = useSelector((state: RootState) => state.filter);
   const [categories, setCategories] = useState<string[]>([]);
+  const [orderBy, setOrderBy] = useState<string>(filterState.orderBy);
+  const [eventType, setEventType] = useState<string | null>(
+    filterState.eventType,
+  );
   const [startDate, setStartDate] = useState<Date | null>(
     filterState.startDate || null,
   );
@@ -52,13 +65,17 @@ const Filter = () => {
     dispatch(setFilterCategory(selectedCategory));
     startDate && dispatch(setFilterStartDate(moment(startDate).toDate()));
     endDate && dispatch(setFilterEndDate(moment(endDate).toDate()));
+    dispatch(setFilterEventType(eventType));
+    dispatch(setFilterOrderBy(orderBy));
     navigation.goBack();
   };
 
   const resetFilter = () => {
     dispatch(setFilterCategory(''));
     dispatch(setFilterStartDate(null));
+    dispatch(setFilterEventType(null));
     dispatch(setFilterEndDate(null));
+    dispatch(setFilterOrderBy('date'));
     navigation.goBack();
   };
 
@@ -73,62 +90,104 @@ const Filter = () => {
         </View>
         <Button title="Reset filter" onPress={resetFilter} />
       </View>
-      <View style={styles.categoriesContainer}>
-        <Text style={styles.subTitle}>Categories</Text>
-        <View style={styles.categories}>
-          {categories.map(category => (
-            <Pressable
-              style={[
-                styles.category,
-                selectedCategory === category && styles.selectedCategory,
-              ]}
-              key={category}
-              onPress={() => {
-                selectedCategory === category
-                  ? setSelectedCategory('')
-                  : setSelectedCategory(category);
-              }}>
-              <Text style={styles.categoryText}>{category}</Text>
-            </Pressable>
-          ))}
+      <ScrollView>
+        <View style={styles.filterContainer}>
+          <Text style={styles.subTitle}>Categories</Text>
+          <View style={styles.options}>
+            {categories.map(category => (
+              <Pressable
+                style={[
+                  styles.option,
+                  selectedCategory === category && styles.selectedOption,
+                ]}
+                key={category}
+                onPress={() => {
+                  selectedCategory === category
+                    ? setSelectedCategory('')
+                    : setSelectedCategory(category);
+                }}>
+                <Text style={styles.categoryText}>{category}</Text>
+              </Pressable>
+            ))}
+          </View>
         </View>
-      </View>
-      <View style={styles.dates}>
-        <View style={styles.datesHeader}>
-          <Text style={styles.subTitle}>Date</Text>
-          <Button
-            title={!isDateRange ? 'Date Range' : 'Single Date'}
+        <View style={styles.filterContainer}>
+          <Text style={styles.subTitle}>Order By</Text>
+          <Pressable
+            style={[styles.option, orderBy === 'date' && styles.selectedOption]}
             onPress={() => {
-              setIsDateRange(!isDateRange);
-            }}
-          />
+              setOrderBy('date');
+            }}>
+            <Text style={styles.categoryText}>Date</Text>
+          </Pressable>
+          <Pressable
+            style={[styles.option, orderBy === 'name' && styles.selectedOption]}
+            onPress={() => {
+              setOrderBy('name');
+            }}>
+            <Text style={styles.categoryText}>Name</Text>
+          </Pressable>
         </View>
-        <View style={styles.startDate}>
-          <Text style={styles.subTitle}>Start Date</Text>
-          <DatePicker
-            date={startDate || new Date()}
-            mode="date"
-            onDateChange={setStartDate}
-            minimumDate={moment().toDate()}
-          />
+        <View style={styles.filterContainer}>
+          <Text style={styles.subTitle}>Event Type</Text>
+          <Pressable
+            style={[
+              styles.option,
+              eventType === 'free' && styles.selectedOption,
+            ]}
+            onPress={() => {
+              setEventType('free');
+            }}>
+            <Text style={styles.categoryText}>Free</Text>
+          </Pressable>
+          <Pressable
+            style={[
+              styles.option,
+              eventType === 'paid' && styles.selectedOption,
+            ]}
+            onPress={() => {
+              setEventType('paid');
+            }}>
+            <Text style={styles.categoryText}>Paid</Text>
+          </Pressable>
         </View>
-        {isDateRange && (
-          <View style={styles.endDate}>
-            <Text style={styles.subTitle}>End Date</Text>
-            <DatePicker
-              date={endDate || new Date()}
-              mode="date"
-              onDateChange={setEndDate}
-              minimumDate={
-                (startDate && moment(startDate).toDate()) || moment().toDate()
-              }
+        <View style={styles.dates}>
+          <View style={styles.datesHeader}>
+            <Text style={styles.subTitle}>Date</Text>
+            <Button
+              title={!isDateRange ? 'Date Range' : 'Single Date'}
+              onPress={() => {
+                setIsDateRange(!isDateRange);
+              }}
             />
           </View>
-        )}
-      </View>
-      <Pressable style={styles.applyButton} onPress={handleApply}>
-        <Text style={styles.applyButtonText}>Apply</Text>
-      </Pressable>
+          <>
+            <Text style={styles.subTitle}>Start Date</Text>
+            <DatePicker
+              date={startDate || new Date()}
+              mode="date"
+              onDateChange={setStartDate}
+              minimumDate={moment().toDate()}
+            />
+          </>
+          {isDateRange && (
+            <>
+              <Text style={styles.subTitle}>End Date</Text>
+              <DatePicker
+                date={endDate || new Date()}
+                mode="date"
+                onDateChange={setEndDate}
+                minimumDate={
+                  (startDate && moment(startDate).toDate()) || moment().toDate()
+                }
+              />
+            </>
+          )}
+        </View>
+        <Pressable style={styles.applyButton} onPress={handleApply}>
+          <Text style={styles.applyButtonText}>Apply</Text>
+        </Pressable>
+      </ScrollView>
     </SafeAreaView>
   );
 };
