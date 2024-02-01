@@ -66,3 +66,10 @@ export const getEventList = (
   }
   return pastEvents;
 };
+
+export const handleDeepLink = (event: any) => {
+  const deepLink = event.url;
+  const params = deepLink.split('?')[1];
+  const id = params.split('=')[1];
+  return {id};
+};

@@ -9,6 +9,7 @@ import {
   Pressable,
   RefreshControl,
   Image,
+  Linking,
 } from 'react-native';
 
 import {useDispatch, useSelector} from 'react-redux';
@@ -17,7 +18,7 @@ import Carousel from 'react-native-reanimated-carousel';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 
-import {getEventList} from '../../utils/eventUtils';
+import {getEventList, handleDeepLink} from '../../utils/eventUtils';
 import {screenHeight, screenWidth} from '../../constants/screenDimensions';
 import {RootState} from '../../redux/store';
 import {fetchEvents} from '../../redux/slices/eventSlice';
@@ -39,9 +40,23 @@ const Home = () => {
     dispatch(fetchEvents());
   }, [dispatch]);
 
-  const navigateTo = (screen: string, params = {}) => {
-    navigation.navigate(screen, {...params});
-  };
+  useEffect(() => {
+    Linking.addListener('url', handleDeepLink);
+
+    Linking.getInitialURL().then(url => {
+      if (url) {
+        console.log('Initial URL:', url);
+        const {id} = handleDeepLink({url});
+        if (id) {
+          navigation.navigate('EventDetail', {eventId: id});
+        }
+      }
+    });
+
+    return () => {
+      Linking.removeAllListeners('url');
+    };
+  }, [navigation]);
 
   const handleChangeMode = (_mode: 'Upcoming' | 'Past') => {
     setMode(_mode);
@@ -106,7 +121,7 @@ const Home = () => {
         </View>
         <Pressable
           onPress={() => {
-            navigateTo('Search', {searchText: ''});
+            navigation.navigate('Search', {searchText: ''});
           }}>
           <Icon name="search-outline" size={28} />
         </Pressable>
@@ -151,7 +166,7 @@ const Home = () => {
             {events.length > 0 && mode === 'Upcoming' && (
               <Pressable
                 onPress={() => {
-                  navigateTo('Filter');
+                  navigation.navigate('Filter');
                 }}>
                 <Icon name="filter-outline" size={24} />
               </Pressable>

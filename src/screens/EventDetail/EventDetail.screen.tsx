@@ -46,8 +46,8 @@ const EventDetail = ({route}: EventDetailProps) => {
 
   const handleShare = async () => {
     Share.share({
-      message: `Check out this event: ${event?.name}`,
-      url: 'https://eventhub.com/event?id=' + event?._id,
+      message: `Check out this event on EventHub: ${event?.name}`,
+      url: 'eventhub://event?id=' + event?._id,
     });
   };
 
