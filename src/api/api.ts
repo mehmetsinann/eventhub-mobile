@@ -4,7 +4,8 @@ import {BASE_URL} from '../constants/apiEndpoints';
 const instance = axios.create({
   baseURL: BASE_URL,
   headers: {
-    'Content-Type': 'application/json',
+    Accept: 'application/json',
+    'Content-Type': 'application/json; charset=utf-8',
   },
 });
 
