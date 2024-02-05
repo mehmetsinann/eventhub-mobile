@@ -26,7 +26,7 @@ type CarouselItemProps = {
     timezone: string;
   };
   date: Date;
-  imageURI?: string;
+  image?: string;
   category: string;
 };
 
@@ -35,7 +35,7 @@ const CarouselItem = ({
   name,
   venue,
   date,
-  imageURI,
+  image,
   category,
 }: CarouselItemProps) => {
   const navigation =
@@ -51,7 +51,7 @@ const CarouselItem = ({
     <Pressable style={styles.container} onPress={handlePress}>
       <Image
         source={{
-          uri: imageURI || getPlaceHolderImage(category),
+          uri: image || getPlaceHolderImage(category),
         }}
         style={styles.image}
       />

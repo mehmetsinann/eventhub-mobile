@@ -10,6 +10,7 @@ import {
   RefreshControl,
   Image,
   Linking,
+  Button,
 } from 'react-native';
 
 import {useDispatch, useSelector} from 'react-redux';
@@ -18,7 +19,11 @@ import Carousel from 'react-native-reanimated-carousel';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 
-import {getEventList, handleDeepLink} from '../../utils/eventUtils';
+import {
+  getEventList,
+  getFeaturedEvents,
+  handleDeepLink,
+} from '../../utils/eventUtils';
 import {screenHeight, screenWidth} from '../../constants/screenDimensions';
 import {RootState} from '../../redux/store';
 import {fetchEvents} from '../../redux/slices/eventSlice';
@@ -74,7 +79,7 @@ const Home = () => {
         name={item.name}
         venue={item.venue}
         date={moment(item.start_date).toDate()}
-        imageURI={item.images[0]}
+        image={item.images[0]}
         category={item.category}
       />
     );
@@ -87,7 +92,7 @@ const Home = () => {
         name={item.name}
         venue={item.venue}
         date={moment(item.start_date).toDate()}
-        images={item.images}
+        image={item.images[0]}
         category={item.category}
       />
     );
@@ -106,6 +111,7 @@ const Home = () => {
     return (
       <SafeAreaView style={styles.status}>
         <Text>Something went wrong!</Text>
+        <Button title="Try again" onPress={onRefresh} />
       </SafeAreaView>
     );
   }
@@ -145,7 +151,7 @@ const Home = () => {
               height={screenHeight / 4}
               autoPlay={true}
               autoPlayInterval={3000}
-              data={events.slice(0, 3)}
+              data={getFeaturedEvents(events)}
               scrollAnimationDuration={1000}
               renderItem={renderCarouselItem}
             />

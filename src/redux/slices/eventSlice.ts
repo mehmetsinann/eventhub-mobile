@@ -37,7 +37,7 @@ const eventSlice = createSlice({
       )
       .addCase(fetchEvents.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.payload as string;
+        state.error = action.error.message as string;
       });
   },
 });

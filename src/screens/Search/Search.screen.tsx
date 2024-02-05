@@ -40,9 +40,13 @@ const Search = ({route}: SearchProps) => {
 
   const getSearchedEvents = useCallback(async () => {
     (search || searchText) &&
-      searchEvents(search || searchText).then(data => {
-        setEvents(data);
-      });
+      searchEvents(search || searchText)
+        .then(data => {
+          setEvents(data);
+        })
+        .catch(error => {
+          console.log('error', error);
+        });
   }, [search, searchText]);
 
   useEffect(() => {
@@ -79,7 +83,7 @@ const Search = ({route}: SearchProps) => {
             name={item.name}
             venue={item.venue}
             date={moment(item.start_date).toDate()}
-            images={item.images}
+            image={item.images[0]}
             category={item.category}
           />
         )}

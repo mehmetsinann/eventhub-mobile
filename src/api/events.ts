@@ -6,18 +6,33 @@ import {
 import api from './api';
 
 export const getCategories = async () => {
-  const response = await api.get(EVENTS_CATEGORIES_ENDPOINT);
-  return response.data;
+  try {
+    const response = await api.get(EVENTS_CATEGORIES_ENDPOINT);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    throw error;
+  }
 };
 
 export const searchEvents = async (searchTerm: string) => {
-  const response = await api.get(
-    `${EVENTS_SEARCH_ENDPOINT}?query=${searchTerm}`,
-  );
-  return response.data;
+  try {
+    const response = await api.get(
+      `${EVENTS_SEARCH_ENDPOINT}?query=${searchTerm}`,
+    );
+    return response.data;
+  } catch (error) {
+    console.error(`Error searching events for '${searchTerm}':`, error);
+    throw error;
+  }
 };
 
 export const getAllEvents = async () => {
-  const response = await api.get(GET_ALL_EVENTS_ENDPOINT);
-  return response.data;
+  try {
+    const response = await api.get(GET_ALL_EVENTS_ENDPOINT);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching all events:', error);
+    throw error;
+  }
 };

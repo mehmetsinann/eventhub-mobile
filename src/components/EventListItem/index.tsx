@@ -25,7 +25,7 @@ type EventListItemProps = {
     timezone: string;
   };
   date: Date;
-  images?: string[];
+  image?: string;
   category: string;
 };
 
@@ -34,7 +34,7 @@ const EventListItem = ({
   name,
   venue,
   date,
-  images,
+  image,
   category,
 }: EventListItemProps) => {
   const navigation =
@@ -64,10 +64,7 @@ const EventListItem = ({
       </View>
       <Image
         source={{
-          uri:
-            images && images.length > 0
-              ? images[0]
-              : getPlaceHolderImage(category),
+          uri: image || getPlaceHolderImage(category),
         }}
         style={styles.image}
       />

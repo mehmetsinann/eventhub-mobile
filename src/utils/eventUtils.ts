@@ -2,6 +2,7 @@ import moment from 'moment';
 
 import {placeHolderImage} from '../constants/placeHolderImage';
 import {Event} from '../types/Event';
+import {FilterState} from '../redux/slices/filterSlice';
 
 export const formatDate = (date: Date) => {
   return moment(date).format('DD MMM, YYYY HH:MM');
@@ -16,10 +17,12 @@ export const getPlaceHolderImage = (category: string) => {
 export const getEventList = (
   events: Event[],
   mode: 'Upcoming' | 'Past' = 'Upcoming',
-  filter: any = {
+  filter: FilterState = {
     category: '',
     startDate: new Date(),
     endDate: null,
+    eventType: null,
+    orderBy: 'date',
   },
 ) => {
   const now = moment();
@@ -51,6 +54,14 @@ export const getEventList = (
     }
     return a.name.localeCompare(b.name);
   });
+};
+
+export const getFeaturedEvents = (events: Event[]) => {
+  const now = moment();
+  const upcomingEvents = events
+    .filter(event => moment(event.start_date).isAfter(now))
+    .sort((a, b) => moment(a.start_date).diff(moment(b.start_date)));
+  return upcomingEvents.slice(0, 3);
 };
 
 export const handleDeepLink = (event: any) => {
