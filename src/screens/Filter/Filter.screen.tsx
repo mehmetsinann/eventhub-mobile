@@ -136,7 +136,7 @@ const Filter = () => {
               eventType === 'free' && styles.selectedOption,
             ]}
             onPress={() => {
-              setEventType('free');
+              eventType === 'free' ? setEventType(null) : setEventType('free');
             }}>
             <Text style={styles.categoryText}>Free</Text>
           </Pressable>
@@ -146,7 +146,7 @@ const Filter = () => {
               eventType === 'paid' && styles.selectedOption,
             ]}
             onPress={() => {
-              setEventType('paid');
+              eventType === 'paid' ? setEventType(null) : setEventType('paid');
             }}>
             <Text style={styles.categoryText}>Paid</Text>
           </Pressable>

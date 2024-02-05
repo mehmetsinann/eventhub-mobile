@@ -22,49 +22,35 @@ export const getEventList = (
     endDate: null,
   },
 ) => {
-  const upcomingEvents = events.filter(event => {
-    return moment(event.start_date).isAfter(moment());
+  const now = moment();
+
+  const filteredEvents = events.filter(event => {
+    const isUpcoming = moment(event.start_date).isAfter(now);
+    const isSameCategory =
+      !filter.category || filter.category === event.category;
+    const isAfterStartDate =
+      !filter.startDate || moment(filter.startDate).isBefore(event.start_date);
+    const isBeforeEndDate =
+      !filter.endDate || moment(filter.endDate).isAfter(event.end_date);
+    const isSameEventType =
+      filter.eventType === null ||
+      (filter.eventType === 'free') === event.is_free;
+
+    return mode === 'Upcoming'
+      ? isUpcoming &&
+          isSameCategory &&
+          isAfterStartDate &&
+          isBeforeEndDate &&
+          isSameEventType
+      : !isUpcoming;
   });
 
-  const pastEvents = events.filter(event => {
-    return moment(event.start_date).isBefore(moment());
+  return filteredEvents.sort((a, b) => {
+    if (filter.orderBy === 'date') {
+      return moment(a.start_date).diff(moment(b.start_date));
+    }
+    return a.name.localeCompare(b.name);
   });
-
-  if (mode === 'Upcoming') {
-    return upcomingEvents
-      .filter(event => {
-        if (filter.category && filter.category !== event.category) {
-          return false;
-        }
-
-        if (
-          filter.startDate &&
-          moment(filter.startDate).isAfter(event.start_date)
-        ) {
-          return false;
-        }
-
-        if (filter.endDate && moment(filter.endDate).isBefore(event.end_date)) {
-          return false;
-        }
-
-        if (
-          filter.eventType !== null &&
-          (filter.eventType === 'free') !== event.is_free
-        ) {
-          return false;
-        }
-
-        return true;
-      })
-      .sort((a, b) => {
-        if (filter.orderBy === 'date') {
-          return moment(a.start_date).diff(moment(b.start_date));
-        }
-        return a.name.localeCompare(b.name);
-      });
-  }
-  return pastEvents;
 };
 
 export const handleDeepLink = (event: any) => {

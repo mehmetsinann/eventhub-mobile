@@ -41,16 +41,17 @@ const Home = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    Linking.addListener('url', handleDeepLink);
+    const navigateToEvent = (url: string) => {
+      const {id} = handleDeepLink({url});
+      id && navigation.navigate('EventDetail', {eventId: id});
+    };
+
+    Linking.addEventListener('url', ({url}) => {
+      url && navigateToEvent(url);
+    });
 
     Linking.getInitialURL().then(url => {
-      if (url) {
-        console.log('Initial URL:', url);
-        const {id} = handleDeepLink({url});
-        if (id) {
-          navigation.navigate('EventDetail', {eventId: id});
-        }
-      }
+      url && navigateToEvent(url);
     });
 
     return () => {
