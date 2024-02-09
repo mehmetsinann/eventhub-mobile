@@ -12,7 +12,19 @@ type WebViewScreenProps = {
 };
 
 const WebViewScreen = ({route}: WebViewScreenProps) => {
-  const webViewRef = useRef(null);
+  const webViewRef = useRef<WebView>(null);
+
+  const injectedJS = `
+    const styleElement = document.createElement('style');
+    styleElement.innerHTML = \`
+      .uWaeI.G7ZKsf, .lqvHA.iNL5bb.OqjlOd, .ZrGTYd, .tLjsW {
+        display: none !important;
+      }
+    \`;
+    document.head.appendChild(styleElement);
+    true;
+  `;
+
   return (
     <WebView
       ref={webViewRef}
@@ -22,6 +34,10 @@ const WebViewScreen = ({route}: WebViewScreenProps) => {
       originWhitelist={['*']}
       domStorageEnabled={true}
       startInLoadingState={true}
+      webviewDebuggingEnabled={true}
+      onLoad={() => {
+        webViewRef.current?.injectJavaScript(injectedJS);
+      }}
     />
   );
 };
