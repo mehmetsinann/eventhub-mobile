@@ -77,7 +77,7 @@ const Home = () => {
       <CarouselItem
         _id={item._id}
         name={item.name}
-        venue={item.venue}
+        venueName={item.venue.name}
         date={moment(item.start_date).toDate()}
         image={item.images[0]}
         category={item.category}
@@ -90,7 +90,7 @@ const Home = () => {
       <EventListItem
         _id={item._id}
         name={item.name}
-        venue={item.venue}
+        venueName={item.venue.name}
         date={moment(item.start_date).toDate()}
         image={item.images[0]}
         category={item.category}

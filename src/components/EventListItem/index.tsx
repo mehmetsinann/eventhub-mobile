@@ -13,17 +13,7 @@ import {styles} from './styles';
 type EventListItemProps = {
   _id: string;
   name: string;
-  venue: {
-    name: string;
-    latitude: number;
-    longitude: number;
-    street_number: string;
-    street: string;
-    city: string;
-    state: string;
-    country: string;
-    timezone: string;
-  };
+  venueName: string;
   date: Date;
   image?: string;
   category: string;
@@ -32,7 +22,7 @@ type EventListItemProps = {
 const EventListItem = ({
   _id,
   name,
-  venue,
+  venueName,
   date,
   image,
   category,
@@ -55,7 +45,7 @@ const EventListItem = ({
         </View>
         <View style={styles.info}>
           <Icon name="location-outline" size={24} />
-          <Text style={styles.infoText}>{venue.name}</Text>
+          <Text style={styles.infoText}>{venueName}</Text>
         </View>
         <View style={styles.info}>
           <Icon name="calendar-clear-outline" size={24} />

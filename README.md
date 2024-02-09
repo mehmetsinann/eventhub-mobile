@@ -1,6 +1,7 @@
 # EventHub
 
 EventHub is a mobile application where people can follow events such as concerts and theater and get information about these events.
+[Watch Demo](https://drive.google.com/file/d/1GRovQXDVrlCr7c2rCh9NzkWuwKg5TgHg/view?usp=sharing)
 
 ## Features
 
@@ -20,7 +21,7 @@ These instructions will help you get a copy of the project up and running on you
 1. Clone the repository:
 
 ```bash
-https://github.com/mehmetsinann/eventhub-mobile.git
+git clone https://github.com/mehmetsinann/quickform.git
 ```
 
 2. Navigate to the project directory:
@@ -39,19 +40,20 @@ yarn install
 
 ```bash
 cd ios && pod install && cd ..
-```   
+```
 
 ## Running the App
 
 You can run the app on iOS or Android with following instructions:
-   - Run for iOS with command below
-     ```bash
-     yarn ios
-     ```
-   - Run for Android with command below
-     ```bash
-     yarn android
-     ```   
+
+- Run for iOS with command below
+  ```bash
+  yarn ios
+  ```
+- Run for Android with command below
+  ```bash
+  yarn android
+  ```
 
 ## Built With
 
