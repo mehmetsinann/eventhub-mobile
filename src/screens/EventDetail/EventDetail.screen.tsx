@@ -7,6 +7,7 @@ import {
   Pressable,
   Share,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
 
 import {useSelector} from 'react-redux';
@@ -67,6 +68,14 @@ const EventDetail = ({route}: EventDetailProps) => {
   const renderCarouselItem = ({item}: any) => {
     return <Image source={{uri: item}} style={styles.image} />;
   };
+
+  if (!event) {
+    return (
+      <SafeAreaView style={styles.status}>
+        <ActivityIndicator size="large" />
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container}>

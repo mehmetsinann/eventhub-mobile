@@ -81,7 +81,7 @@ const Search = ({route}: SearchProps) => {
           <EventListItem
             _id={item._id}
             name={item.name}
-            venue={item.venue}
+            venueName={item.venue.name}
             date={moment(item.start_date).toDate()}
             image={item.images[0]}
             category={item.category}
